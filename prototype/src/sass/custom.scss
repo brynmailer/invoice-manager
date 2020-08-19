@@ -1,0 +1,109 @@
+@import "materialize";
+
+
+// materialize overrides
+.row {
+  margin: 0;
+}
+
+.collapsible-body {
+  padding: 0;
+}
+
+.card {
+  margin: 0;
+}
+
+
+// universal
+html, body {
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.m-1 {
+  margin: 10px;
+}
+
+
+// navbar
+.app-location {
+  @extend .brand-logo;
+  width: 100%;
+}
+
+.sidenav-header {
+  margin-left: 30px;
+}
+
+
+// work sessions
+.search-bar {
+  height: 40px;
+
+  .input-field {
+    height: 40px;
+
+    label {
+      top: 8px;
+      left: 16px;
+    }
+
+    input#search {
+      margin: 0;
+    }
+  }
+}
+
+.work-session-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  + .expand-icon {
+    transform: rotate(0deg);
+    transition: transform 0.2s linear;
+    
+    &.open {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.work-session-body {
+  padding: 10px;
+
+  > .work-session-id {
+    padding-left: 16px;
+    margin: 0;
+  }
+}
+
+#edit-work-session {
+  width: 95%;
+  height: 100%;
+
+  > .modal-footer {
+    padding-right: 4px;
+    position: absolute;
+    bottom: 0px;
+  }
+}
+
+#new-work-session {
+  width: 95%;
+  height: 100%;
+
+  > .modal-footer {
+    padding-right: 4px;
+    position: absolute;
+    bottom: 0px;
+  }
+}
+
+
+// settings
+.settings-label {
+  margin: 0;
+}
