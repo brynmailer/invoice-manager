@@ -1,10 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+namespace InvMan\Core\Database;
 
-namespace Api\Entity;
-
-abstract class Entity implements \JsonSerializable {
+abstract class Entity {
   public function __construct($args) {
     foreach ($args as $key => $value) {
       if (\property_exists($this, $key)) {
@@ -17,13 +15,5 @@ abstract class Entity implements \JsonSerializable {
         }
       }
     }
-  }
-
-  public function jsonSerialize() {
-    $serialized = [];
-    foreach ($this as $key => $value) {
-      $serialized[$key] = $value;
-    }
-    return $serialized;
   }
 }

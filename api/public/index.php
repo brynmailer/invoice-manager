@@ -1,39 +1,24 @@
-<?php
+<?php declare(strict_types=1);
 
-require __DIR__ . '/../autoloader.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-use Api\Exception;
-use Api\Dispatcher;
-use Api\Container;
+use InvMan\Core\Server\Router;
 
-try {
+use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 
-  $config = include __DIR__ . '/../config.php' ?: [];
-  $container = new Container(
-    $_SERVER,
-    $_GET,
-    $_POST,
-    $_COOKIE,
-    $_SESSION,
-    $config
-  );
-  $dispatcher = new Dispatcher($container);
-  $response = $dispatcher->dispatch(explode('api', $_SERVER['REQUEST_URI'])[1], $_SERVER['REQUEST_METHOD']);
 
-} catch (Exception\NoMatchingRoute $e) {
+$router = new Router();
 
-  $statusMsg = $e->getMessage() ?: 'Not Found';
-  $statusCode = $e->getCode();
+$router->route(
+  'GET',
+  '/invoice-manager/api',
+  'InvMan\Handler\Ping'
+);
 
-} catch (\Exception $e) {
+$router->route(
+  'GET',
+  '/invoice-manager/api/login',
+  'InvMan\Handler\Login'
+);
 
-  $statusMsg = $e->getMessage() ?: 'Internal Server Error';
-  $statusCode = $e->getCode() ?: 500;
-
-} finally {
-
-  header("HTTP/1.1 $statusCode $statusMsg");
-  header('Content-Type: application/json');
-  echo json_encode($response);
-
-}
+(new SapiEmitter)->emit($router->dispatch());
