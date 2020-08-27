@@ -5,8 +5,8 @@ namespace InvMan\Core\Server;
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\Response\JsonResponse;
 
-interface RequestHandlerInterface {
-  public function handle(
+abstract class RequestHandler {
+  abstract public function handle(
     ServerRequest $request,
     JsonResponse $response
   ): JsonResponse;

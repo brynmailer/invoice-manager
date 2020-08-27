@@ -11,7 +11,10 @@ class Manager {
     $this->database = new \PDO(
       'mysql:host=localhost;dbname=invoice-manager',
       'invoice-manager',
-      'murtel12'
+      'murtel12',
+      [
+        'PDO::ATTR_PERSISTENT' => true
+      ]
     );
   }
 
@@ -19,6 +22,10 @@ class Manager {
     string $entity,
     array $options
   ): Entity {
-    
+    $sql = '
+      SELECT *
+      FROM :entity
+      WHERE
+    ';
   }
 }

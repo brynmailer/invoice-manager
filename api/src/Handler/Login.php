@@ -2,14 +2,14 @@
 
 namespace InvMan\Handler;
 
-use InvMan\Core\Server\RequestHandlerInterface;
+use InvMan\Core\Server\RequestHandler;
 
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\Response\JsonResponse;
 
 use InvMan\Entity\Employer;
 
-class Login implements RequestHandlerInterface {
+class Login extends RequestHandler {
   public function handle(
     ServerRequest $request,
     JsonResponse $response

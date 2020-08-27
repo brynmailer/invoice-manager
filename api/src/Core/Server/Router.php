@@ -8,13 +8,31 @@ use Laminas\Diactoros\Response\JsonResponse;
 
 class Router {
   private array $map = [];
+  private array $methods = [
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE',
+    '*'
+  ];
 
   public function route(
     string $method,
     string $path,
     string $handler
   ): void {
-    $this->map['/^' . $method . ' \/' . \implode('\/', \array_filter(\explode('/', $path))) . '\/?$/'] = new $handler;
+    if (\in_array($method, $this->methods)) {
+      $methodSelector = $method === '*' ? '(GET|POST|PUT|DELETE)' : $method;
+      $this->map[
+        '/^' .
+        $methodSelector .
+        ' \/' .
+        \implode('\/', \array_filter(\explode('/', $path))) .
+        '\/?$/'
+      ] = new $handler;
+    } else {
+      throw new Exception('Invalid HTTP method supplied to Router::route');
+    }
   }
 
   public function dispatch(): JsonResponse {

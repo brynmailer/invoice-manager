@@ -1,18 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace InvMan\Handler;
+namespace InvMan\Core\Server;
 
 use InvMan\Core\Server\RequestHandler;
 
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\Response\JsonResponse;
 
-class Ping extends RequestHandler{
-  public function handle(
+abstract class Middleware {
+  abstract public function process(
     ServerRequest $request,
-    JsonResponse $response
-  ): JsonResponse {
-    return $response
-      ->withStatus(200);
-  }
+    JsonResponse $response,
+    RequestHandler $next
+  ): JsonResponse;
 }

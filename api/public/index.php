@@ -11,14 +11,14 @@ $router = new Router();
 
 $router->route(
   'GET',
-  '/invoice-manager/api',
-  'InvMan\Handler\Ping'
+  '/invoice-manager/api/login',
+  'InvMan\Handler\Login'
 );
 
 $router->route(
   'GET',
-  '/invoice-manager/api/login',
-  'InvMan\Handler\Login'
+  '/invoice-manager/api',
+  'InvMan\Handler\Ping'
 );
 
 (new SapiEmitter)->emit($router->dispatch());
