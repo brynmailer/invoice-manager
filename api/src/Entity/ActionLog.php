@@ -1,10 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace InvMan\Entity;
+namespace App\Entity;
 
-use InvMan\Core\Database\Entity;
-
-use InvMan\Entity\User;
+use App\Framework\Database\Entity;
 
 class ActionLog extends Entity {
   public string $ID;

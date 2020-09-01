@@ -1,10 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace InvMan\Entity;
+namespace App\Entity;
 
-use InvMan\Core\Database\Entity;
-
-use InvMan\Entity\Employer;
+use App\Framework\Database\Entity;
 
 class Project extends Entity {
   public string $ID;

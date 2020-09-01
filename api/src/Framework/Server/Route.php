@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace InvMan\Core\Server;
+namespace App\Framework\Server;
 
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\Response\JsonResponse;

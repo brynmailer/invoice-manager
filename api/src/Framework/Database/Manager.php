@@ -1,8 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace InvMan\Core\Database;
-
-use InvMan\Core\Database\Entity;
+namespace App\Framework\Database;
 
 class Manager {
   private \PDO $database;

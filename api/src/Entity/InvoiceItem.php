@@ -1,11 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace InvMan\Entity;
+namespace App\Entity;
 
-use InvMan\Core\Database\Entity;
-
-use InvMan\Entity\Invoice;
-use InvMan\Entity\WorkSession;
+use App\Framework\Database\Entity;
 
 class InvoiceItem extends Entity {
   public string $ID;

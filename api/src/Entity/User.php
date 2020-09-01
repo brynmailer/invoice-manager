@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace InvMan\Entity;
+namespace App\Entity;
 
-use InvMan\Core\Database\Entity;
+use App\Framework\Database\Entity;
 
 class User extends Entity {
   public string $ID;

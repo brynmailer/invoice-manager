@@ -1,11 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace InvMan\Entity;
+namespace App\Entity;
 
-use InvMan\Core\Database\Entity;
-
-use InvMan\Entity\Employee;
-use InvMan\Entity\Project;
+use App\Framework\Database\Entity;
 
 class WorkSession extends Entity {
   public string $ID;

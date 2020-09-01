@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace InvMan\Core\Database;
+namespace App\Framework\Database;
 
 abstract class Entity {
   public function __construct($args) {

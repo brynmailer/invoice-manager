@@ -2,19 +2,25 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use InvMan\Core\Server\Router;
+use App\Framework\Server\Router;
+
+use App\Entity\User;
 
 $router = new Router();
 
 $router
-  ->route('/invoice-manager/api/invoices/:invoiceID')
+  ->route('/invoice-manager/api/user/:userID')
   ->get([
     function ($req, $res, $next) {
       return $res
         ->withStatus(200)
-        ->withPayload([
-          'invoice' => $req->getAttribute('params')['invoiceID']
-        ]);
+        ->withPayload(new User([
+          'ID' => 'TEST_ID',
+          'email' => 'TEST_EMAIL',
+          'firstName' => 'TEST_FIRSTNAME',
+          'lastName' => 'TEST_LASTNAME',
+          'password' => 'TEST_PASSWORD'
+        ]));
     }
   ]);
 
