@@ -5,18 +5,15 @@ namespace App\Handler;
 use App\Entity;
 
 class User {
-  public function getByID(
+  public function getAll(
     $req,
     $res,
     $next
   ) {
+    $users = Entity\User::select();
+
     return $res
-      ->withPayload(new Entity\User([
-        'ID' => 'TEST_ID',
-        'email' => 'TEST_EMAIL',
-        'firstName' => 'TEST_FIRSTNAME',
-        'lastName' => 'TEST_LASTNAME',
-        'password' => 'TEST_PASSWORD'
-      ]));
+      ->withStatus(200)
+      ->withPayload($users);
   }
 }

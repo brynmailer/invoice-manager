@@ -16,4 +16,33 @@ abstract class Entity {
       }
     }
   }
+
+  public static function select() {
+    $class = \get_called_class();
+    $table = \strtolower(
+      \preg_replace(
+        ['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'],
+        '$1_$2',
+        \end(\explode('\\', $class))
+      )
+    );
+
+    $sql = "
+      SELECT *
+      FROM $table
+    ";
+
+    global $dbManager;
+    $statement = $dbManager
+      ->connection
+      ->prepare($sql);
+
+    $statement->execute();
+    return \array_map(
+      function ($row) use ($class) {
+        return new $class($row);
+      },
+      $statement->fetchAll(\PDO::FETCH_ASSOC)
+    );
+  }
 }
