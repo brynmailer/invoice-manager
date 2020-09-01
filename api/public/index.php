@@ -4,21 +4,18 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use InvMan\Core\Server\Router;
 
-use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
-
-
 $router = new Router();
 
-$router->route(
-  'GET',
-  '/invoice-manager/api/login',
-  'InvMan\Handler\Login'
-);
+$router
+  ->route('/invoice-manager/api/invoices/:invoiceID')
+  ->get([
+    function ($req, $res, $next) {
+      return $res
+        ->withStatus(200)
+        ->withPayload([
+          'invoice' => $req->getAttribute('params')['invoiceID']
+        ]);
+    }
+  ]);
 
-$router->route(
-  'GET',
-  '/invoice-manager/api',
-  'InvMan\Handler\Ping'
-);
-
-(new SapiEmitter)->emit($router->dispatch());
+$router->emit();

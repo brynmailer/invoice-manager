@@ -5,48 +5,63 @@ namespace InvMan\Core\Server;
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\Response\JsonResponse;
+use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 
 class Router {
-  private array $map = [];
-  private array $methods = [
-    'GET',
-    'POST',
-    'PUT',
-    'DELETE',
-    '*'
-  ];
+  private array $stack = [];
 
   public function route(
-    string $method,
-    string $path,
-    string $handler
-  ): void {
-    if (\in_array($method, $this->methods)) {
-      $methodSelector = $method === '*' ? '(GET|POST|PUT|DELETE)' : $method;
-      $this->map[
-        '/^' .
-        $methodSelector .
-        ' \/' .
-        \implode('\/', \array_filter(\explode('/', $path))) .
-        '\/?$/'
-      ] = new $handler;
-    } else {
-      throw new Exception('Invalid HTTP method supplied to Router::route');
-    }
+    string $path
+  ): Route {
+    $route = new Route($path);
+    $layer = new Layer($path, [$route, 'dispatch']);
+    $layer->route = $route;
+    $this->stack[] = $layer;
+    return $route;
   }
 
-  public function dispatch(): JsonResponse {
-    $request = ServerRequestFactory::fromGlobals();
-    $response = new JsonResponse(null);
-
-    foreach ($this->map as $pattern => $handler) {
-      $serverParams = $request->getServerParams();
-      if (\preg_match($pattern, $serverParams['REQUEST_METHOD'] . " " . $serverParams['REQUEST_URI'])) {
-        return $handler->handle($request, $response);
-      }
-    }
-
-    return $response
+  public function handle(): JsonResponse {
+    $req = ServerRequestFactory::fromGlobals();
+    $res = (new JsonResponse(null))
       ->withStatus(404);
+
+    $idx = 0;
+    $stack = $this->stack;
+
+    $next = function (
+      $req,
+      $res
+    ) use (
+      &$idx,
+      $stack,
+      &$next
+    ) {
+      $layer = isset($stack[$idx]) ? $stack[$idx] : null;
+      $idx++;
+
+      if (!$layer) {
+        return $res;
+      }
+      
+      if (!$layer->match($req->getServerParams()['REQUEST_URI'])) {
+        return $next($req, $res);
+      }
+
+      return $layer->handle_request(
+        $req
+          ->withAttribute(
+            'params',
+            $layer->params
+          ),
+        $res,
+        $next
+      );
+    };
+    
+    return $next($req, $res);
+  }
+
+  public function emit(): void {
+    (new SapiEmitter)->emit($this->handle());
   }
 }

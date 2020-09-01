@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0629614bd3498266a23fef6799778dad",
+    "content-hash": "b7389eaec14d8b8ba46b8db2e72c42e9",
     "packages": [
         {
             "name": "laminas/laminas-diactoros",
@@ -222,6 +222,59 @@
                 }
             ],
             "time": "2020-08-18T16:34:51+00:00"
+        },
+        {
+            "name": "mnavarrocarter/path-to-regexp-php",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mnavarrocarter/path-to-regexp-php.git",
+                "reference": "dcd7839a447898cc962fa094551c0ead1722c827"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mnavarrocarter/path-to-regexp-php/zipball/dcd7839a447898cc962fa094551c0ead1722c827",
+                "reference": "dcd7839a447898cc962fa094551c0ead1722c827",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "phpunit/phpunit": "^8.0",
+                "vimeo/psalm": "^3.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MNC\\PathToRegExpPHP\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gil Polguère",
+                    "email": "gpolguere@gmail.com"
+                },
+                {
+                    "name": "Matias Navarro",
+                    "email": "mnavarrocarter@gmail.com"
+                }
+            ],
+            "description": "A PHP port of Path-To-Regex JS",
+            "keywords": [
+                "Match",
+                "convert",
+                "path",
+                "regexp",
+                "route",
+                "routing"
+            ],
+            "time": "2020-02-08T20:15:39+00:00"
         },
         {
             "name": "psr/http-factory",
