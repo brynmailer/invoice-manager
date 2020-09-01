@@ -10,7 +10,12 @@ class User {
     $res,
     $next
   ) {
-    $users = Entity\User::select();
+    $users = Entity\User::select([
+      'where' => [
+        'ID' => 'TEST_ID',
+        'email' => 'TEST_EMAIL'
+      ]
+    ]);
 
     return $res
       ->withStatus(200)
