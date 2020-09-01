@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Framework\Server;
+namespace App\Framework\Api;
 
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\Diactoros\ServerRequest;

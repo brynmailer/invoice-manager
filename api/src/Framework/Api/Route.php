@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Framework\Server;
+namespace App\Framework\Api;
 
 use Laminas\Diactoros\ServerRequest;
 use Laminas\Diactoros\Response\JsonResponse;
@@ -38,7 +38,7 @@ class Route {
       
       $method = \strtolower($req->getServerParams()['REQUEST_METHOD']);
 
-      if ($layer->method && $layer->method !== $method) {
+      if (isset($layer->method) && $layer->method !== $method) {
         return $next($req, $res);
       }
 
@@ -47,6 +47,17 @@ class Route {
     
     return $next($req, $res);
   }
+
+  public function all(
+    array $handles = []
+  ): Route {
+    foreach ($handles as &$handle) {
+      $layer = new Layer($this->path, $handle);
+      $this->stack[] = $layer;
+    }
+
+    return $this;
+  } 
 
   public function get(
     array $handles = []
