@@ -10,10 +10,9 @@ class User {
     $res,
     $next
   ) {
-    $users = Entity\User::select([
-      'where' => [
-        'ID' => 'TEST_ID',
-        'email' => 'TEST_EMAIL'
+    $users = Entity\Employer::select([
+      'relations' => [
+        'employer.userID' => 'user.ID'
       ]
     ]);
 

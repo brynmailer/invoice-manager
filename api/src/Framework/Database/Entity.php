@@ -21,12 +21,12 @@ abstract class Entity {
     array $opts = []
   ) {
     $class = \get_called_class();
-    $className = \explode('\\', $class);
+    $classPath = \explode('\\', $class);
     $table = \strtolower(
       \preg_replace(
         ['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'],
         '$1_$2',
-        \end($className)
+        \end($classPath)
       )
     );
 
@@ -61,11 +61,31 @@ abstract class Entity {
     }
 
     $statement->execute();
+    $rows = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+    if (isset($opts['relations']) && \count($opts['relations']) > 0) {
+      foreach ($rows as $index => $row) {
+        foreach ($opts['relations'] as $key => $value) {
+          $primaryKey = \explode('.', $key);
+          $foreignKey = \explode('.', $value);
+          $rows[$index][$foreignKey[0]] = (
+            \implode('\\', \array_slice($classPath, 0, 2)) .
+            '\\' .
+            \ucfirst($foreignKey[0])
+          )::select([
+            'where' => [
+              $foreignKey[1] => $row[$primaryKey[1]]
+            ]
+          ])[0];
+        }
+      }
+    }
+
     return \array_map(
       function ($row) use ($class) {
         return new $class($row);
       },
-      $statement->fetchAll(\PDO::FETCH_ASSOC)
+      $rows
     );
   }
 }
