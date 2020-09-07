@@ -3,6 +3,8 @@
 namespace App\Framework\Database;
 
 abstract class Entity {
+  public const RELATIONS = [];
+  
   public function __construct($args) {
     foreach ($args as $key => $value) {
       if (\property_exists($this, $key)) {
@@ -21,12 +23,12 @@ abstract class Entity {
     array $opts = []
   ) {
     $class = \get_called_class();
-    $classPath = \explode('\\', $class);
+    $classArr = \explode('\\', $class);
     $table = \strtolower(
       \preg_replace(
         ['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'],
         '$1_$2',
-        \end($classPath)
+        \end($classArr)
       )
     );
 
@@ -63,19 +65,23 @@ abstract class Entity {
     $statement->execute();
     $rows = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-    if (isset($opts['relations']) && \count($opts['relations']) > 0) {
+    // Expand relationships
+    if (isset($opts['expand']) && \count($opts['expand']) > 0) {
       foreach ($rows as $index => $row) {
-        foreach ($opts['relations'] as $key => $value) {
-          $primaryKey = \explode('.', $key);
-          $foreignKey = \explode('.', $value);
-          $rows[$index][$foreignKey[0]] = (
-            \implode('\\', \array_slice($classPath, 0, 2)) .
-            '\\' .
-            \ucfirst($foreignKey[0])
-          )::select([
+        foreach ($opts['expand'] as $key => $value) {
+          if (!\is_array($value)) {
+            $relation = $value;
+          } else {
+            $relation = $key;
+            $subRelations = $value;
+          }
+          $rp = new \ReflectionProperty($class, $relation);
+          $subClass = $rp->getType()->getName();
+          $rows[$index][$relation] = $subClass::select([
             'where' => [
-              $foreignKey[1] => $row[$primaryKey[1]]
-            ]
+              $class::RELATIONS[$relation][1] => $row[$class::RELATIONS[$relation][0]]
+            ],
+            'expand' => $subRelations
           ])[0];
         }
       }

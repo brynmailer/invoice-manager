@@ -11,15 +11,15 @@ use App\Handler;
 $router = new Router();
 
 $database = new Middleware\Database();
-$user = new Handler\User();
+$userHandler = new Handler\User();
 
 $router
-  ->route('/invoice-manager/api/users')
+  ->route('/invoice-manager/api/users/:userID')
   ->all([
     [$database, 'initialize']
   ])
   ->get([
-    [$user, 'getAll']
+    [$userHandler, 'getByID']
   ]);
 
 $router->emit();
