@@ -10,19 +10,17 @@ class User {
     $res,
     $next
   ) {
-    $users = Entity\Invoice::select([
+    $user = Entity\Employer::select([
       'where' => [
         'ID' => $req->getAttribute('params')['userID']
       ],
       'expand' => [
-        'employer' => [
-          'user'
-        ]
+        'user'
       ]
     ])[0];
 
     return $res
       ->withStatus(200)
-      ->withPayload($users);
+      ->withPayload($user);
   }
 }

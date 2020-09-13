@@ -1,19 +1,41 @@
-Invoicing System
+<h1 align="center">Invoice Manager</h1>
 
-Staff need to track time on their mobile phones for billable projects undertaken by the firm. This solution should act in two ways: 1) productivity tracking of employess 2) Invoicing clients for hours spent on project tases 
+An application that takes the hassle out of the project invoicing process, by automating the collection of work hours completed by employees, and the calculation of project prices.
 
-Build the solution in the following steps:
+## Installation
 
-PROJ1: Maps out the technical details from this general information (you are welcome to copy from above)
-UX1: Prototype of time tracking tool, has auth, and a single screen where employess log hours on projects
-PROJ2: Pure PHP implementation for frontend, incorporating auth, time tracking and CRUD on all logged tasks 
-UX2: Implementation of UX1 using pure html/js and your choice of layout frameowrk
-PROJ3: Invoicing interface your choice of a framework for: user management, invoice management, project manangement
-PROJ4: Deployment of solution on your choice of hosting platform
-UX3: Analysis of the state of the project (including continuous improvments advised to by teacher)
+Clone this repository into your web server root directory. Ensure that you have NodeJS, NPM/Yarn and Composer installed on your system.
 
-Each item needs approval before the next task can be started.
+```sh
+cd invoice-manager/api
 
-It is expected that the employee (you) will dogfood your solution, once UX2 has some functionality 
+composer install
 
-Please setup a repository with this file and add me as a colloborator
+cd ../employee-app
+
+// with npm
+npm install
+
+// with yarn
+yarn
+```
+
+## Tech Stack
+
+Employee Mobile App
+  - HTML, SASS, JS
+  - Materialize
+  - Yup
+  - Webpack4
+  - Babel
+
+Employer Dashboard
+  - ReactJS
+  - Material UI
+  - Yup
+  - React Router
+
+API
+  - PHP7
+  - PDO
+  - MySQL

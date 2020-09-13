@@ -11,5 +11,7 @@ class Employer extends Entity {
 
   public string $ID;
   public string $companyName;
+  public string $userID;
+
   public User $user;
 }

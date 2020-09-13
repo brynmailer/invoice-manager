@@ -11,6 +11,9 @@ class InvoiceItem extends Entity {
   ];
 
   public string $ID;
+  public string $invoiceID;
+  public string $workSessionID;
+
   public Invoice $invoice;
   public WorkSession $workSession;
 }

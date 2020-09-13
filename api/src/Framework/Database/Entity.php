@@ -19,22 +19,24 @@ abstract class Entity {
     }
   }
 
+  public function save() {
+    $class = \get_called_class();
+    $tableName = $class::getTableName();
+
+    $sql = "
+      INSERT INTO `$tableName`
+    ";
+  }
+
   public static function select(
     array $opts = []
   ) {
     $class = \get_called_class();
-    $classArr = \explode('\\', $class);
-    $table = \strtolower(
-      \preg_replace(
-        ['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'],
-        '$1_$2',
-        \end($classArr)
-      )
-    );
+    $tableName = $class::getTableName();
 
     $sql = "
       SELECT *
-      FROM `$table`
+      FROM `$tableName`
     ";
     
     // Build SQL query string
@@ -92,6 +94,17 @@ abstract class Entity {
         return new $class($row);
       },
       $rows
+    );
+  }
+
+  protected static function getTableName(): string {
+    $classPath = \explode('\\', \get_called_class());
+    return \strtolower(
+      \preg_replace(
+        ['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'],
+        '$1_$2',
+        \end($classPath)
+      )
     );
   }
 }

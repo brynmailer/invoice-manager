@@ -11,9 +11,12 @@ class WorkSession extends Entity {
   ];
 
   public string $ID;
-  public Employee $employee;
-  public Project $project;
+  public string $employeeID;
+  public string $projectID;
   public string $start;
   public string $finish;
   public string $description;
+
+  public Employee $employee;
+  public Project $project;
 }
