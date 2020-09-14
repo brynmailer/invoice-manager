@@ -30,6 +30,8 @@ The Invoice Management application operates within the following guidelines:
 Ensure that you have NodeJS, Yarn and Composer installed on your system.
 
 ```sh
+git clone https://github.com/brynmailer/invoice-manager.git
+
 cd invoice-manager
 
 ./build
