@@ -27,11 +27,19 @@ The Invoice Management application operates within the following guidelines:
 
 ## Setup
 
-Ensure that you have NodeJS, Yarn and Composer installed on your system. Run `./build` and copy the contents of the generated `./dist` directory to the root of your web server. Example directory structure:
-`http/`
-  `api/`
-  `employee-app/`
-  `employer-dashboard/`
+Ensure that you have NodeJS, Yarn and Composer installed on your system.
+
+```sh
+cd invoice-manager
+
+./build
+```
+
+Copy the contents of the generated `./dist` directory to the root of your web server. Example directory structure:
+  * `http/`
+    * `api/`
+    * `employee-app/`
+    * `employer-dashboard/`
 
 ## Tech Stack
 
