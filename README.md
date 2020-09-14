@@ -4,12 +4,12 @@ An application that takes the hassle out of the project invoicing process, by au
 
 ## TODO
   * *__API__* Write a test script. 
-  * *_API_* Finish the save and delete methods of the Database\Entity class.
-  * *_API_* Add all API routes to `public/index.php` and write their respective handlers.
-  * *_API_* Write the rate-limiting middlewares.
-  * *_API_* Write the request logging middleware.
-  * *_API_* Comment potentially confusing sections of the codebase.
-  * *_API_* Prevent entities outside of localhost from accessing the API.
+  * *__API__* Finish the save and delete methods of the Database\Entity class.
+  * *__API__* Add all API routes to `public/index.php` and write their respective handlers.
+  * *__API__* Write the rate-limiting middlewares.
+  * *__API__* Write the request logging middleware.
+  * *__API__* Comment potentially confusing sections of the codebase.
+  * *__API__* Prevent entities outside of localhost from accessing the API.
 
 ## System Rules
 
