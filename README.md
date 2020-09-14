@@ -3,7 +3,7 @@
 An application that takes the hassle out of the project invoicing process, by automating the collection of work hours completed by employees, and the calculation of project prices.
 
 ## TODO
-  * *_API_* Write a test script. 
+  * *__API__* Write a test script. 
   * *_API_* Finish the save and delete methods of the Database\Entity class.
   * *_API_* Add all API routes to `public/index.php` and write their respective handlers.
   * *_API_* Write the rate-limiting middlewares.
