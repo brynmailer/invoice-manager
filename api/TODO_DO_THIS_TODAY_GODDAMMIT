@@ -1,0 +1,15 @@
+2. write the save method: / 1 hour
+  - check if object has a primary key
+    - if not, insert object
+    - else, update object
+3. write delete method: / 30 mins
+  - check if object has a primary key
+    - if not, error
+    - else, continue
+  - check if object exists in db
+    - if not, error
+    - else, delete it
+4. write auth routes / 1 hour
+5. write logging middleware / 20 mins
+6. write work session CRUD / 1 hour
+7. get as much done on UX2 as possible

@@ -10,16 +10,14 @@ use App\Handler;
 
 $router = new Router();
 
-$database = new Middleware\Database();
-$userHandler = new Handler\User();
+$databaseMiddleware = new Middleware\Database();
 
+$authenticationHandler = new Handler\Authentication();
 $router
-  ->route('/invoice-manager/api/users/:userID')
-  ->all([
-    [$database, 'initialize']
-  ])
-  ->get([
-    [$userHandler, 'getByID']
+  ->route('/api/login')
+  ->post([
+    [$databaseMiddleware, 'initialize'],
+    [$authenticationHandler, 'login']
   ]);
 
 $router->emit();

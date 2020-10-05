@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Framework\Database\Entity;
 
 class ActionLog extends Entity {
+  public const PRIMARY_KEY = 'ID';
   public const RELATIONS = [
     'user' => ['userID', 'ID']
   ];

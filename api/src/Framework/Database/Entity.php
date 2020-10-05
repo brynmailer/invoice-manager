@@ -3,6 +3,7 @@
 namespace App\Framework\Database;
 
 abstract class Entity {
+  public const PRIMARY_KEY = '';
   public const RELATIONS = [];
   
   public function __construct($args) {
@@ -20,12 +21,99 @@ abstract class Entity {
   }
 
   public function save() {
+    global $dbManager;
     $class = \get_called_class();
+    $properties = \get_object_vars($this);
     $tableName = $class::getTableName();
+    $primaryKey = $class::PRIMARY_KEY;
 
-    $sql = "
-      INSERT INTO `$tableName`
-    ";
+    foreach (\array_keys($class::RELATIONS) as $key) {
+      unset($properties[$key]);
+    }
+
+    if (!isset($this->{$class::PRIMARY_KEY})) {
+      $sql = "INSERT INTO `$tableName` (";
+      $sql .= "$primaryKey, ";
+      $keys = \array_keys($properties);
+
+      $index = 0;
+      foreach ($keys as $key) {
+        if ($index === \count($keys) - 1) {
+          $sql .= "$key) VALUES (";
+        } else {
+          $sql .= "$key, ";
+        }
+        $index++;
+      }
+
+      $statement = $dbManager
+        ->connection
+        ->prepare("SELECT UUID() as PK");
+      $statement->execute();
+      $newPK = $statement->fetchAll(\PDO::FETCH_ASSOC)[0]['PK'];
+
+      $sql .= "'$newPK', ";
+      $index = 0;
+      foreach ($keys as $key) {
+        if ($index === \count($keys) - 1) {
+          $sql .= ":$key)";
+        } else {
+          $sql .= ":$key, ";
+        }
+        $index++;
+      }
+
+      $statement = $dbManager
+        ->connection
+        ->prepare($sql);
+      
+      foreach ($properties as $key => &$value) {
+        $statement->bindParam(":$key", $value);
+      }
+
+      $statement->execute();
+
+      return $class::select([
+        'where' => [
+          $primaryKey => $newPK
+        ]
+      ])[0];
+    } else {
+      $PK = $this->{$primaryKey};
+      unset($properties[$primaryKey]);
+
+      $sql = "UPDATE `$tableName` SET ";
+
+      $keys = \array_keys($properties);
+      $index = 0;
+      foreach ($keys as $key) {
+        if ($index === \count($keys) - 1) {
+          $sql .= "$key = :$key ";
+        } else {
+          $sql .= "$key = :$key, ";
+        }
+        $index++;
+      }
+
+      $sql .= "WHERE $primaryKey = :$primaryKey";
+
+      $statement = $dbManager
+        ->connection
+        ->prepare($sql);
+      
+      foreach ($properties as $key => &$value) {
+        $statement->bindParam(":$key", $value);
+      }
+      $statement->bindParam(":$primaryKey", $PK);
+
+      $statement->execute();
+
+      return $class::select([
+        'where' => [
+          $primaryKey => $PK
+        ]
+      ])[0];
+    }
   }
 
   public static function select(
@@ -39,7 +127,7 @@ abstract class Entity {
       FROM `$tableName`
     ";
     
-    // Build SQL query string
+    // Add WHERE clause
     if (isset($opts['where']) && \count($opts['where']) > 0) {
       $index = 0;
       foreach (\array_keys($opts['where']) as $key) {
