@@ -34,6 +34,16 @@ class WorkSessions {
       'description' => $req->getParsedBody()['description']
     ]);
 
+    $validationErrors = $workSession->validate();
+
+    if (\count($validationErrors) > 0) {
+      return $res
+        ->withStatus(400)
+        ->withPayload([
+          'validationErrors' => $validationErrors
+        ]);
+    }
+
     $workSession = $workSession->save();
 
     return $res
@@ -54,6 +64,16 @@ class WorkSessions {
       'finish' => $req->getParsedBody()['finish'],
       'description' => $req->getParsedBody()['description']
     ]);
+
+    $validationErrors = $workSession->validate();
+
+    if (\count($validationErrors) > 0) {
+      return $res
+        ->withStatus(400)
+        ->withPayload([
+          'validationErrors' => $validationErrors
+        ]);
+    }
 
     $workSession = $workSession->save();
 

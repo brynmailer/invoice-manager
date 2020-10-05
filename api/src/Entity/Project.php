@@ -9,6 +9,21 @@ class Project extends Entity {
   public const RELATIONS = [
     'employer' => ['employerID', 'ID']
   ];
+  public const SCHEMA = [
+    'ID' => [
+      'maxLength' => 36,
+      'minLength' => 36
+    ],
+    'employerID' => [
+      'maxLength' => 36,
+      'minLength' => 36
+    ],
+    'client' => [
+      'maxLength' => 255,
+      'minLength' => 0
+    ],
+    'description' => []
+  ];
 
   public string $ID;
   public string $employerID;

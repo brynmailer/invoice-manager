@@ -6,6 +6,28 @@ use App\Framework\Database\Entity;
 
 class User extends Entity {
   public const PRIMARY_KEY = 'ID';
+  public const SCHEMA = [
+    'ID' => [
+      'maxLength' => 36,
+      'minLength' => 36
+    ],
+    'email' => [
+      'maxLength' => 255,
+      'minLength' => 3
+    ],
+    'firstName' => [
+      'maxLength' => 255,
+      'minLength' => 0
+    ],
+    'lastName' => [
+      'maxLength' => 255,
+      'minLength' => 0
+    ],
+    'password' => [
+      'maxLength' => 60,
+      'minLength' => 60
+    ]
+  ];
 
   public string $ID;
   public string $email;

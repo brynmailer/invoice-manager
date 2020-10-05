@@ -10,6 +10,29 @@ class WorkSession extends Entity {
     'employee' => ['employerID', 'ID'],
     'project' => ['projectID', 'ID']
   ];
+  public const SCHEMA = [
+    'ID' => [
+      'maxLength' => 36,
+      'minLength' => 36
+    ],
+    'employerID' => [
+      'maxLength' => 36,
+      'minLength' => 36
+    ],
+    'projectID' => [
+      'maxLength' => 36,
+      'minLength' => 36
+    ],
+    'start' => [
+      'maxLength' => 19,
+      'minLength' => 19
+    ],
+    'finish' => [
+      'maxLength' => 19,
+      'minLength' => 19
+    ],
+    'description' => []
+  ];
 
   public string $ID;
   public string $employeeID;

@@ -10,6 +10,25 @@ class Employee extends Entity {
     'user' => ['userID', 'ID'],
     'employer' => ['employerID', 'ID']
   ];
+  public const SCHEMA = [
+    'ID' => [
+      'maxLength' => 36,
+      'minLength' => 36
+    ],
+    'userID' => [
+      'maxLength' => 36,
+      'minLength' => 36
+    ],
+    'employerID' => [
+      'maxLength' => 36,
+      'minLength' => 36
+    ],
+    'hourlyRate' => [
+      'maxLength' => 15,
+      'minLength' => 0
+    ],
+    'job' => []
+  ];
 
   public string $ID;
   public string $userID;

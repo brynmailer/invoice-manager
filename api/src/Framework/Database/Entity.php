@@ -5,6 +5,7 @@ namespace App\Framework\Database;
 abstract class Entity {
   public const PRIMARY_KEY = '';
   public const RELATIONS = [];
+  public const SCHEMA = [];
   
   public function __construct($args) {
     foreach ($args as $key => $value) {
@@ -18,6 +19,46 @@ abstract class Entity {
         }
       }
     }
+  }
+
+  public function validate() {
+    $class = \get_called_class();
+    $errors = [];
+
+    foreach ($class::SCHEMA as $property => $rules) {
+      if (isset($this->{$property})) {
+        foreach ($rules as $key => $value) {
+          $rp = new \ReflectionProperty($class, $property);
+          if ($rp->getType()->getName() === 'string') {
+            switch ($key) {
+              case 'maxLength':
+                if (\strlen($this->{$property}) > $value) $errors[$property][$key] = "Must not contain more than ${value} characters.";
+                break;
+              case 'minLength':
+                if (\strlen($this->{$property}) < $value) $errors[$property][$key] = "Must not contain less than ${value} characters.";
+                break;
+            }
+          } else if ($rp->getType()->getType() === 'int') {
+            switch ($key) {
+              case 'maxLength':
+                if (\strlen((string)$this->{$property}) > $value) $errors[$property][$key] = "Must not contain more than ${value} digits.";
+                break;
+              case 'minLength':
+                if (\strlen((string)$this->{$property}) < $value) $errors[$property][$key] = "Must not contain less than ${value} digits.";
+                break;
+              case 'maxValue':
+                if ($this->{$property} > $value) $errors[$property][$key] = "Must not be greater than ${value}.";
+                break;
+              case 'minValue':
+                if ($this->{$property} < $value) $errors[$property][$key] = "Must not be less than ${value}.";
+                break;
+            }
+          }
+        }
+      }
+    }
+
+    return $errors;
   }
 
   public function save() {

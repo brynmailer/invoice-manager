@@ -10,6 +10,20 @@ class InvoiceItem extends Entity {
     'invoice' => ['invoiceID', 'ID'],
     'workSession' => ['workSessionID', 'ID']
   ];
+  public const SCHEMA = [
+    'ID' => [
+      'maxLength' => 36,
+      'minLength' => 36
+    ],
+    'invoiceID' => [
+      'maxLength' => 36,
+      'minLength' => 36
+    ],
+    'workSessionID' => [
+      'maxLength' => 36,
+      'minLength' => 36
+    ]
+  ];
 
   public string $ID;
   public string $invoiceID;
