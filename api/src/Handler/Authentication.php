@@ -3,7 +3,6 @@
 namespace App\Handler;
 
 use App\Entity;
-use Ramsey\Uuid\Uuid;
 
 class Authentication {
   public function login(
@@ -11,19 +10,38 @@ class Authentication {
     $res,
     $next
   ) {
-    $test = new Entity\User([
-      'ID' => '8e069953-06b9-11eb-983a-84fdd1be0091',
-      'email' => 'brydiupero@gmail.com',
-      'firstName' => 'Bryan',
-      'lastName' => 'Mailer'
+    $users = Entity\User::select([ 
+      'where' => [ 
+        'email' => $req->getParsedBody()['email']
+      ]
     ]);
 
+    if (\count($users) === 1) {
+      if (\password_verify($req->getParsedBody()['password'], $users[0]->password)) {
+        $_SESSION['userID'] = $users[0]->ID;
+        unset($users[0]->password);
+        return $res
+          ->withStatus(200)
+          ->withPayload([
+            'user' => $users[0]
+          ]);
+      }
+    }
+
     return $res
-      ->withStatus(200)
-      ->withPayload($test->delete([
-        'where' => [
-          'ID' => '8e069953-06b9-11eb-983a-84fdd1be0091'
-        ]
-      ]));
+      ->withStatus(401);
+  }
+
+  public function logout(
+    $req,
+    $res,
+    $next
+  ) {
+    if (isset($_SESSION['userID'])) {
+      unset($_SESSION['userID']);
+    }
+
+    return $res
+      ->withStatus(200);
   }
 }

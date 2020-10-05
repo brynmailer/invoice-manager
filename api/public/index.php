@@ -3,21 +3,31 @@
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../config/config.php';
 
-use App\Framework\Api\Router;
+use App\Framework\Database;
+use App\Framework\Api;
 
 use App\Middleware;
 use App\Handler;
 
-$router = new Router();
+global $dbManager;
+$dbManager = new Database\Manager();
 
-$databaseMiddleware = new Middleware\Database();
+session_start();
+$router = new Api\Router();
 
-$authenticationHandler = new Handler\Authentication();
+$authMiddleware = new Middleware\Authentication();
+
+$authHandler = new Handler\Authentication();
 $router
   ->route('/api/login')
   ->post([
-    [$databaseMiddleware, 'initialize'],
-    [$authenticationHandler, 'login']
+    [$authHandler, 'login']
+  ]);
+$router
+  ->route('/api/logout')
+  ->get([
+    [$authMiddleware, 'isAuthenticated'],
+    [$authHandler, 'logout']
   ]);
 
 $router->emit();
