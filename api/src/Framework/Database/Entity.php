@@ -223,12 +223,6 @@ abstract class Entity {
 
   protected static function getTableName(): string {
     $classPath = \explode('\\', \get_called_class());
-    return \strtolower(
-      \preg_replace(
-        ['/([a-z\d])([A-Z])/', '/([^_])([A-Z][a-z])/'],
-        '$1_$2',
-        \end($classPath)
-      )
-    );
+    return \lcfirst(\end($classPath));
   }
 }

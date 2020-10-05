@@ -42,6 +42,6 @@ class Authentication {
     }
 
     return $res
-      ->withStatus(200);
+      ->withStatus(204);
   }
 }
