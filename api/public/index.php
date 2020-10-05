@@ -15,17 +15,20 @@ $dbManager = new Database\Manager();
 session_start();
 $router = new Api\Router();
 
+$loggingMiddleware = new Middleware\Logging();
 $authMiddleware = new Middleware\Authentication();
 
 $authHandler = new Handler\Authentication();
 $router
   ->route('/api/login')
   ->post([
+    [$loggingMiddleware, 'logAction'],
     [$authHandler, 'login']
   ]);
 $router
   ->route('/api/logout')
   ->get([
+    [$loggingMiddleware, 'logAction'],
     [$authMiddleware, 'isAuthenticated'],
     [$authHandler, 'logout']
   ]);
