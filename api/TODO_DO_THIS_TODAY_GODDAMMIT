@@ -1,7 +1,3 @@
-2. write the save method: / 1 hour
-  - check if object has a primary key
-    - if not, insert object
-    - else, update object
 3. write delete method: / 30 mins
   - check if object has a primary key
     - if not, error

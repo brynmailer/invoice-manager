@@ -20,6 +20,10 @@ class Authentication {
 
     return $res
       ->withStatus(200)
-      ->withPayload($test->save());
+      ->withPayload($test->delete([
+        'where' => [
+          'ID' => '8e069953-06b9-11eb-983a-84fdd1be0091'
+        ]
+      ]));
   }
 }

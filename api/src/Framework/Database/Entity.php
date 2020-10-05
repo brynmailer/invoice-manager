@@ -116,6 +116,42 @@ abstract class Entity {
     }
   }
 
+  public static function delete(
+    array $opts = []
+  ) {
+    $class = \get_called_class();
+    $tableName = $class::getTableName();
+
+    $sql = "DELETE FROM `$tableName`";
+    
+    // Add WHERE clause
+    if (isset($opts['where']) && \count($opts['where']) > 0) {
+      $index = 0;
+      foreach (\array_keys($opts['where']) as $key) {
+        if ($index > 0) {
+          $sql .= " AND `$key` = :$key";
+        } else {
+          $sql .= " WHERE `$key` = :$key";
+        }
+        $index++;
+      }
+    }
+
+    global $dbManager;
+    $statement = $dbManager
+      ->connection
+      ->prepare($sql);
+    
+    // Bind params
+    if (isset($opts['where']) && \count($opts['where']) > 0) {
+      foreach ($opts['where'] as $key => &$value) {
+        $statement->bindParam(":$key", $value);
+      }
+    }
+
+    $statement->execute();
+  }
+
   public static function select(
     array $opts = []
   ) {
