@@ -1,12 +1,23 @@
 {
   "name": "mobile-app",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "sass ./sass/custom.scss ./css/styles.css"
+    "dev": "gulp watch",
+    "build": "gulp"
   },
   "devDependencies": {
-    "sass": "^1.26.11"
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-cli": "^2.3.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^4.1.0",
+    "webpack": "^4.44.2",
+    "webpack-stream": "^6.1.0"
   }
 }

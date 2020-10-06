@@ -1,3 +1,4 @@
+console.log("hi");
 document.addEventListener("DOMContentLoaded", () => {
   M.updateTextFields();
 });
