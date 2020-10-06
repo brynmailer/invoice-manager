@@ -17,8 +17,7 @@ class Logging {
       'action' => $req->getServerParams()['REQUEST_URI']
     ]);
 
-    $log
-      ->save();
+    $log->save();
 
     return $next(
       $req,

@@ -16,20 +16,18 @@ class Authentication {
       ]
     ]);
 
-    if (\count($users) === 1) {
-      if (\password_verify($req->getParsedBody()['password'], $users[0]->password)) {
-        $_SESSION['userID'] = $users[0]->ID;
-        unset($users[0]->password);
-        return $res
-          ->withStatus(200)
-          ->withPayload([
-            'user' => $users[0]
-          ]);
-      }
-    }
+    if (\count($users) !== 1) return $res->withStatus(401);
+
+    if (!\password_verify($req->getParsedBody()['password'], $users[0]->password)) return $res->withStatus(401);
+
+    $_SESSION['userID'] = $users[0]->ID;
+    unset($users[0]->password);
 
     return $res
-      ->withStatus(401);
+      ->withStatus(200)
+      ->withPayload([
+        'user' => $users[0]
+      ]);
   }
 
   public function logout(
@@ -37,11 +35,6 @@ class Authentication {
     $res,
     $next
   ) {
-    if (isset($_SESSION['userID'])) {
-      unset($_SESSION['userID']);
-    }
-
-    return $res
-      ->withStatus(204);
+    unset($_SESSION['userID']);
   }
 }

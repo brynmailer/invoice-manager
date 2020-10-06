@@ -37,6 +37,7 @@ $router
     [$authHandler, 'logout']
   ]);
 
+$workSessionsMiddleware = new Middleware\WorkSessions();
 $workSessionsHandler = new Handler\WorkSessions();
 $router
   ->route('/api/employees/:employeeID/work-sessions')
@@ -58,12 +59,14 @@ $router
     [$loggingMiddleware, 'logAction'],
     [$authMiddleware, 'isAuthenticated'],
     [$authMiddleware, 'canAccessEmployee'],
+    [$workSessionsMiddleware, 'workSessionExists'],
     [$workSessionsHandler, 'editWorkSession']
   ])
   ->delete([
     [$loggingMiddleware, 'logAction'],
     [$authMiddleware, 'isAuthenticated'],
     [$authMiddleware, 'canAccessEmployee'],
+    [$workSessionsMiddleware, 'workSessionExists'],
     [$workSessionsHandler, 'deleteWorkSession']
   ]);
 

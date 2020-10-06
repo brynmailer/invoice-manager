@@ -40,7 +40,9 @@ class WorkSessions {
       return $res
         ->withStatus(400)
         ->withPayload([
-          'validationErrors' => $validationErrors
+          'error' => [
+            'validation' => $validationErrors
+          ]
         ]);
     }
 
@@ -71,7 +73,9 @@ class WorkSessions {
       return $res
         ->withStatus(400)
         ->withPayload([
-          'validationErrors' => $validationErrors
+          'error' => [
+            'validation' => $validationErrors
+          ]
         ]);
     }
 
@@ -89,11 +93,11 @@ class WorkSessions {
   ) {
     Entity\WorkSession::delete([
       'where' => [
-        'ID' => $req->getAttribute('params')['workSessionID']
+        'ID' => $req->getAttribute('params')['workSessionID'],
+        'employeeID' => $req->getAttribute('params')['employeeID']
       ]
     ]);
 
-    return $res
-      ->withStatus(204);
+    return $res->withStatus(204);
   }
 }
