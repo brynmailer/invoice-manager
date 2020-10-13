@@ -3,8 +3,8 @@
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../config/config.php';
 
-use App\Framework\Database;
-use App\Framework\Api;
+use Lib\Database;
+use Lib\Api;
 
 use App\Middleware;
 use App\Handler;
