@@ -40,7 +40,7 @@ $router
 $workSessionsMiddleware = new Middleware\WorkSessions();
 $workSessionsHandler = new Handler\WorkSessions();
 $router
-  ->route('/api/employees/:employeeID/work-sessions')
+  ->route('/api/employee/:employeeID/work-sessions')
   ->get([
     [$loggingMiddleware, 'logAction'],
     [$authMiddleware, 'isAuthenticated'],
@@ -54,7 +54,7 @@ $router
     [$workSessionsHandler, 'createWorkSession']
   ]);
 $router
-  ->route('/api/employees/:employeeID/work-sessions/:workSessionID')
+  ->route('/api/employee/:employeeID/work-session/:workSessionID')
   ->put([
     [$loggingMiddleware, 'logAction'],
     [$authMiddleware, 'isAuthenticated'],

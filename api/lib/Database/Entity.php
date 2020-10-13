@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Framework\Database;
+namespace Lib\Database;
 
 abstract class Entity {
   public const PRIMARY_KEY = '';

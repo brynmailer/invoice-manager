@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Framework\Database\Entity;
+use Lib\Database\Entity;
 
 class Log extends Entity {
   public const PRIMARY_KEY = 'ID';

@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Framework\Database\Entity;
+use Lib\Database\Entity;
 
 class WorkSession extends Entity {
   public const PRIMARY_KEY = 'ID';

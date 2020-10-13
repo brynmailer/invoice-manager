@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Handler;
+namespace App\Middleware;
 
 use App\Entity;
 
