@@ -3,13 +3,10 @@
 An application that takes the hassle out of the project invoicing process, by automating the collection of work hours completed by employees, and the calculation of project prices.
 
 ## TODO
-  * *__API__* Write a test script. 
-  * *__API__* Finish the save and delete methods of the Database\Entity class.
-  * *__API__* Add all API routes to `public/index.php` and write their respective handlers.
   * *__API__* Write the rate-limiting middlewares.
-  * *__API__* Write the request logging middleware.
+  * *__API__* Write the remaining API routes required for PROJ3.
   * *__API__* Comment potentially confusing sections of the codebase.
-  * *__API__* Prevent entities outside of localhost from accessing the API.
+  * *__Mobile App__* Fill templates with result of fetch requests.
 
 ## System Rules
 
