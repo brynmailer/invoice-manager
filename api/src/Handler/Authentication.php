@@ -20,13 +20,55 @@ class Authentication {
 
     if (!\password_verify($req->getParsedBody()['password'], $users[0]->password)) return $res->withStatus(401);
 
-    $_SESSION['userID'] = $users[0]->ID;
-    unset($users[0]->password);
+    $result;
+    switch ($req->getParsedBody()['role']) {
+      case "employee":
+        $result = Entity\Employee::select([
+          'where' => [
+            'userID' => $users[0]->ID
+          ],
+          'expand' => [
+            'user' 
+          ]
+        ]);
+
+        if (\count($result) !== 1) {
+          return $res->withStatus(401);
+        }
+
+        break;
+
+      case "employer":
+        $result = Entity\Employer::select([
+          'where' => [
+            'userID' => $users[0]->ID
+          ],
+          'expand' => [
+            'user' 
+          ]
+        ]);
+
+        if (\count($result) !== 1) {
+          return $res->withStatus(401);
+        }
+
+        break;
+
+      default:
+        return $res->withStatus(400);
+        break;
+    }
+
+    unset($users);
+
+    $_SESSION['userID'] = $result[0]->user->ID;
+    $_SESSION['userRole'] = $req->getParsedBody()['role'];
+    unset($result[0]->user->password);
 
     return $res
       ->withStatus(200)
       ->withPayload([
-        'user' => $users[0]
+        $req->getParsedBody()['role'] => $result[0]
       ]);
   }
 
@@ -36,5 +78,53 @@ class Authentication {
     $next
   ) {
     unset($_SESSION['userID']);
+
+    return $res
+      ->withStatus(200);
+  }
+
+  public function status(
+    $req,
+    $res,
+    $next
+  ) {
+    return $res
+      ->withStatus(200);
+  }
+
+  public function me(
+    $req,
+    $res,
+    $next
+  ) {
+    switch ($_SESSION['userRole']) {
+      case "employee":
+        return $res
+          ->withStatus(200)
+          ->withPayload([
+            'employee' => Entity\Employee::select([
+              'where' => [
+                'userID' => $req->getAttribute('user')->ID
+              ],
+              'expand' => [
+                'user'
+              ]
+            ])[0]
+          ]);
+
+      case "employer":
+        return $res
+          ->withStatus(200)
+          ->withPayload([
+            'employer' => Entity\Employer::select([
+              'where' => [
+                'userID' => $req->getAttribute('user')->ID
+              ],
+              'expand' => [
+                'user'
+              ]
+            ])[0]
+          ]);
+    }
   }
 }
