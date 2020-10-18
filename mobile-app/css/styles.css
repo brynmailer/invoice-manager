@@ -1,0 +1,104 @@
+/* Materialize Overrides */
+.row {
+  margin: 0;
+}
+
+.card {
+  margin: 0;
+}
+
+.collapsible-body {
+  padding: 0;
+}
+
+/* Utility */
+.m-1 {
+  margin: 10px;
+}
+
+.centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Navigation */
+#app-location {
+  width: 100%;
+}
+
+.sidenav-header {
+  margin-left: 30px;
+}
+
+/* Search Bar */
+.search-bar {
+  height: 40px;
+}
+
+.search-bar .input-field {
+  height: 40px;
+}
+
+.search-bar .input-field label {
+  top: 8px;
+  left: 16px;
+}
+
+.search-bar .input-field input#search {
+  margin: 0;
+}
+
+/* Work Sessions */
+.work-session-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.work-session-header + .expand-icon {
+  transform: rotate(0deg);
+  transition: transform 0.2s linear;
+}
+
+.work-session-header + .expand-icon.open {
+  transform: rotate(180deg);
+}
+
+.work-session-body {
+  padding: 10px;
+}
+
+.work-session-body > .work-session-id {
+  padding-left: 16px;
+  margin: 0;
+}
+
+#edit-work-session {
+  width: 95%;
+  height: 100%;
+}
+
+#edit-work-session > .modal-footer {
+  padding-right: 4px;
+  position: absolute;
+  bottom: 0px;
+}
+
+#new-work-session {
+  width: 95%;
+  height: 100%;
+}
+
+#new-work-session > .modal-footer {
+  padding-right: 4px;
+  position: absolute;
+  bottom: 0px;
+}
+
+/* Settings */
+.settings-label {
+  margin: 0;
+}
