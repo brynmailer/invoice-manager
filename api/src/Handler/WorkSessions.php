@@ -16,6 +16,9 @@ class WorkSessions {
         Entity\WorkSession::select([
           'where' => [
             'employeeID' => $req->getAttribute('employee')->ID
+          ],
+          'expand' => [
+            'project'
           ]
         ])
       );

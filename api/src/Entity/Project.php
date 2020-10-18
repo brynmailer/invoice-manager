@@ -27,6 +27,7 @@ class Project extends Entity {
 
   public string $ID;
   public string $employerID;
+  public string $title;
   public string $client;
   public string $description;
 

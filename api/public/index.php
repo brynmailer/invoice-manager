@@ -15,26 +15,40 @@ $dbManager = new Database\Manager();
 session_start();
 $router = new Api\Router();
 
-// Transfers the body of HTTP requests into the $_POST superglobal.
-// Allows the request body of a HTTP PUT to be accessed by the ServerRequestFactory.
-parse_str(file_get_contents("php://input"), $_POST);
+// Transfers and decodes the JSON body of HTTP requests into the $_POST superglobal.
+// Allows Laminas Diactoros' ServerRequestFactory to understand JSON bodies.
+$_POST = json_decode(file_get_contents("php://input"), true);
 
 $loggingMiddleware = new Middleware\Logging();
 $authMiddleware = new Middleware\Authentication();
 
 $authHandler = new Handler\Authentication();
 $router
-  ->route('/api/login')
+  ->route('/api/auth/login')
   ->post([
     [$loggingMiddleware, 'logAction'],
     [$authHandler, 'login']
   ]);
 $router
-  ->route('/api/logout')
+  ->route('/api/auth/logout')
   ->get([
     [$loggingMiddleware, 'logAction'],
     [$authMiddleware, 'isAuthenticated'],
     [$authHandler, 'logout']
+  ]);
+$router
+  ->route('/api/auth/status')
+  ->get([
+    [$loggingMiddleware, 'logAction'],
+    [$authMiddleware, 'isAuthenticated'],
+    [$authHandler, 'status']
+  ]);
+$router
+  ->route('/api/auth/me')
+  ->get([
+    [$loggingMiddleware, 'logAction'],
+    [$authMiddleware, 'isAuthenticated'],
+    [$authHandler, 'me']
   ]);
 
 $workSessionsMiddleware = new Middleware\WorkSessions();
