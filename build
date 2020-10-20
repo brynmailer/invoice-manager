@@ -1,11 +1,12 @@
 #!/bin/bash
+mysql -u root -e 'CREATE DATABASE invoice-manager';
+mysql -u root invoice-manager < invoice-manager.sql 
 
 cd ./api
 composer install
 cd ../
 
 cd ./employer-dashboard
-yarn
 yarn build
 cd ../
 
