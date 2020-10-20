@@ -84,4 +84,14 @@ $router
     [$workSessionsHandler, 'deleteWorkSession']
   ]);
 
+$projectsHandler = new Handler\Projects();
+$router
+  ->route('/api/employee/:employeeID/projects')
+  ->get([
+    [$loggingMiddleware, 'logAction'],
+    [$authMiddleware, 'isAuthenticated'],
+    [$authMiddleware, 'canAccessEmployee'],
+    [$projectsHandler, 'getProjects']
+  ]);
+
 $router->emit();

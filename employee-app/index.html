@@ -111,17 +111,17 @@
           <form>
             <div class="row">
               <div class="col s6 input-field">
-                <input id="start" type="text" class="timepicker" value="09:00am">
+                <input id="start" type="text" class="timepicker validate" value="09:00am">
                 <label for="start">Start Time</label>
               </div>
               <div class="col s6 input-field">
-                <input id="finish" type="text" class="timepicker" value="03:00pm">
+                <input id="finish" type="text" class="timepicker validate" value="03:00pm">
                 <label for="finish">Finish Time</label>
               </div>
             </div>
             <div class="row">
               <div class="col s6 input-field">
-                <input id="date" type="text" class="datepicker" value="Aug 01, 2020">
+                <input id="date" type="text" class="datepicker validate" value="Aug 01, 2020">
                 <label for="date">Date</label>
               </div>
               <div class="col s6 input-field">
@@ -131,7 +131,7 @@
             </div>
             <div class="row">
               <div class="col s12 input-field">
-                <select>
+                <select class="validate">
                   <option value="1" selected>Project 1</option>
                   <option value="2">Project 2</option>
                   <option value="3">Project 3</option>
@@ -141,15 +141,15 @@
             </div>
             <div class="row">
               <div class="input-field col s12">
-                <textarea id="description" class="materialize-textarea">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum sed libero nec lacinia. Ut ullamcorper mauris sit amet lacus pharetra, porta viverra dolor vestibulum.</textarea>
+                <textarea id="description" class="materialize-textarea validate">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum sed libero nec lacinia. Ut ullamcorper mauris sit amet lacus pharetra, porta viverra dolor vestibulum.</textarea>
                 <label for="description">Description</label>
               </div>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-close waves-effect waves-light btn-flat">Cancel</a>
-          <a href="#!" class="modal-close waves-effect waves-light green btn">Save</a>
+          <a class="modal-close waves-effect waves-light btn-flat">Cancel</a>
+          <a class="modal-close waves-effect waves-light green btn">Save</a>
         </div>
       </div>
       <div id="new-work-session-btn" class="fixed-action-btn">
@@ -160,54 +160,58 @@
       <div id="new-work-session" class="modal">
         <h5 class="center-align">New Work Session</h5>
         <div class="modal-content">
-          <form id="new-work-session-form">
+          <form id="new-work-session-form" novalidate>
             <div class="row">
               <div class="col s6 input-field">
-                <input id="start" type="text" class="timepicker" required>
-                <label for="start">Start Time</label>
+                <input id="new-work-session-start-time" type="text" class="timepicker" required>
+                <label for="new-work-session-start-time">Start time</label>
               </div>
               <div class="col s6 input-field">
-                <input id="finish" type="text" class="timepicker" required>
-                <label for="finish">Finish Time</label>
+                <input id="new-work-session-finish-time" type="text" class="timepicker" required>
+                <label for="new-work-session-finish-time">Finish time</label>
               </div>
             </div>
             <div class="row">
               <div class="col s6 input-field">
-                <input id="date" type="text" class="datepicker" required>
-                <label for="date">Date</label>
+                <input id="new-work-session-start-date" type="text" class="datepicker" required>
+                <label for="new-work-session-start-date">Start date</label>
               </div>
               <div class="col s6 input-field">
-                <input id="total" type="text" disabled>
-                <label for="total">Total</label>
+                <input id="new-work-session-finish-date" type="text" class="datepicker" required>
+                <label for="new-work-session-finish-date">Finish date</label>
               </div>
             </div>
             <div class="row">
               <div class="col s12 input-field">
-                <select id="project" required>
+                <select id="new-work-session-project" required>
                 </select>
                 <label>Project</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
-                <textarea id="description" class="materialize-textarea"></textarea>
-                <label for="description">Description</label>
+                <textarea id="new-work-session-description" class="materialize-textarea"></textarea>
+                <label for="new-work-session-description">Description</label>
               </div>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-close waves-effect waves-light btn-flat">Cancel</a>
-          <a id="save-new-work-session-btn" href="#!" class="waves-effect waves-light green btn">Save</a>
+          <input type="reset" form="new-work-session-form" value="Cancel" class="modal-close waves-effect waves-light btn-flat">
+          <input type="submit" form="new-work-session-form" value="Save" class="waves-effect waves-light green btn">
         </div>
       </div>
       <div id="delete-work-session" class="modal">
         <h5 class="center-align">Delete Work Session?</h5>
         <div class="modal-footer">
-          <a href="#!" class="modal-close waves-effect waves-light btn-flat">Cancel</a>
-          <a href="#!" class="modal-close waves-effect waves-light red btn">Delete</a>
+          <a class="modal-close waves-effect waves-light btn-flat">Cancel</a>
+          <a class="modal-close waves-effect waves-light red btn">Delete</a>
         </div>
       </div>
+
+      <template id="work-session-project-template">
+        <option></option>
+      </template>
 
       <template id="work-session-template">
         <li>

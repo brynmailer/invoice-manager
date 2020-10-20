@@ -4,11 +4,6 @@ cd ./api
 composer install
 cd ../
 
-cd ./employee-app
-yarn
-yarn build
-cd ../
-
 cd ./employer-dashboard
 yarn
 yarn build
@@ -17,5 +12,5 @@ cd ../
 [ -d ./dist ] && rm -rf ./dist
 mkdir ./dist
 cp -R ./api ./dist/api
-cp -R ./employee-app/build ./dist/employee-app
+cp -R ./employee-app ./dist/employee-app
 cp -R ./employer-dashboard/build ./dist/employer-dashboard

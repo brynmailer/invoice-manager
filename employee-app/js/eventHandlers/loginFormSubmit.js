@@ -3,6 +3,7 @@ import { loadWorkSessions } from "../loadWorkSessions.js";
 
 export const loginFormSubmit = (event) => {
   event.preventDefault();
+
   fetch("/api/auth/login", {
     method: "POST",
     mode: "same-origin",
