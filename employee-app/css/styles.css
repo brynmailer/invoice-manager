@@ -11,6 +11,11 @@
   padding: 0;
 }
 
+.timepicker,
+.datepicker {
+  caret-color: transparent;
+}
+
 /* Utility */
 .m-1 {
   margin: 10px;

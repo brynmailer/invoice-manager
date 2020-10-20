@@ -1,4 +1,7 @@
 export const loadWorkSessions = (template) => {
+  const workSessionProjectTemplate = template.querySelector(
+    "#work-session-project-template"
+  );
   const workSessionTemplate = template.querySelector("#work-session-template");
 
   const spinner = document
@@ -12,8 +15,34 @@ export const loadWorkSessions = (template) => {
     mode: "same-origin",
     credentials: "include",
   })
-    .then((res) => res.json())
+    .then((res) => res.status === 200 && res.json())
     .then((data) => {
+      fetch(`/api/employee/${data.employee.ID}/projects`, {
+        method: "GET",
+        mode: "same-origin",
+        credentials: "include",
+      })
+        .then((res) => res.status === 200 && res.json())
+        .then((projects) => {
+          projects.forEach((project) => {
+            const projectDOM = workSessionProjectTemplate.content.firstElementChild.cloneNode(
+              true
+            );
+
+            projectDOM.value = project.ID;
+
+            projectDOM.innerHTML = project.title;
+
+            template
+              .querySelector("#new-work-session-project")
+              .appendChild(projectDOM);
+
+            M.FormSelect.init(
+              template.querySelector("#new-work-session-project")
+            );
+          });
+        });
+
       fetch(`/api/employee/${data.employee.ID}/work-sessions`, {
         method: "GET",
         mode: "same-origin",
@@ -21,6 +50,8 @@ export const loadWorkSessions = (template) => {
       })
         .then((res) => res.json())
         .then((workSessions) => {
+          workSessions.sort((a, b) => new Date(b.start) - new Date(a.start));
+
           workSessions.forEach((workSession) => {
             const workSessionDOM = workSessionTemplate.content.firstElementChild.cloneNode(
               true
@@ -30,7 +61,7 @@ export const loadWorkSessions = (template) => {
 
             workSessionDOM.querySelector(
               ".work-session-header"
-            ).firstElementChild.innerHTML = `${workSession.start} - ${workSession.finish}`;
+            ).firstElementChild.innerHTML = `${workSession.start} <strong>-</strong> ${workSession.finish}`;
 
             workSessionDOM.querySelector(
               ".work-session-project-title"
