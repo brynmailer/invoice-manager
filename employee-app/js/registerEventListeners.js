@@ -3,6 +3,7 @@ import { workSessionsBtnClick } from "./eventHandlers/workSessionsBtnClick.js";
 import { settingsBtnClick } from "./eventHandlers/settingsBtnClick.js";
 import { logoutBtnClick } from "./eventHandlers/logoutBtnClick.js";
 import { newWorkSessionFormSubmit } from "./eventHandlers/newWorkSessionFormSubmit.js";
+import { deleteWorkSessionConfirmBtnClick } from "./eventHandlers/deleteWorkSessionConfirmBtnClick.js";
 
 export const registerEventListeners = (pageName, navbar) => {
   document.querySelectorAll(".timepicker,.datepicker").forEach((element) =>
@@ -43,6 +44,10 @@ export const registerEventListeners = (pageName, navbar) => {
       document
         .getElementById("new-work-session-form")
         .addEventListener("submit", newWorkSessionFormSubmit);
+
+      document
+        .getElementById("delete-work-session-confirm-btn")
+        .addEventListener("click", deleteWorkSessionConfirmBtnClick);
       break;
   }
 };

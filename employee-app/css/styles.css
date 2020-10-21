@@ -103,6 +103,10 @@
   bottom: 0px;
 }
 
+.modal-spinner {
+  position: relative;
+}
+
 /* Settings */
 .settings-label {
   margin: 0;
