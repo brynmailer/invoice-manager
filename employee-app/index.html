@@ -11,25 +11,23 @@
     <title>Invoice Manager</title>
   </head>
   <body>
+    <div id="navbar" hidden>
+      <nav>
+        <div class="nav-wrapper">
+          <a data-target="sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <span id="app-location" class="center brand-logo"></span>
+        </div>
+      </nav>
+      <ul class="sidenav" id="sidenav">
+        <li><h5 class="sidenav-header">Invoice Manager</h5></li>
+        <li class="sidenav-close nav-item" id="work-sessions-nav-item"><a id="work-sessions-btn">Work Sessions</a></li>
+        <li class="sidenav-close nav-item" id="settings-nav-item"><a id="settings-btn">Settings</a></li>
+        <li class="sidenav-close"><a id="logout-btn" class="red-text">Logout</a></li>
+      </ul>
+    </div>
+
     <div id="root"></div>
     
-    <template id="navbar-template">
-      <div id="navbar">
-        <nav>
-          <div class="nav-wrapper">
-            <a data-target="sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <span id="app-location" class="center brand-logo"></span>
-          </div>
-        </nav>
-        <ul class="sidenav" id="sidenav">
-          <li><h5 class="sidenav-header">Invoice Manager</h5></li>
-          <li class="sidenav-close" id="work-sessions-nav-item"><a id="work-sessions-btn">Work Sessions</a></li>
-          <li class="sidenav-close" id="settings-nav-item"><a id="settings-btn">Settings</a></li>
-          <li class="sidenav-close"><a id="logout-btn" class="red-text">Logout</a></li>
-        </ul>
-      </div>
-    </template>
-
     <template id="login-template">
       <div class="container">
         <h1 class="center-align indigo-text">Invoice Manager</h1>
