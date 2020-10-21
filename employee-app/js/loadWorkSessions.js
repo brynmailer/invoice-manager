@@ -70,6 +70,17 @@ export const loadWorkSessions = (template) => {
             workSessionDOM.querySelector(".work-session-description").value =
               workSession.description;
 
+            workSessionDOM
+              .querySelector("a.delete-work-session-btn")
+              .addEventListener("click", () => {
+                const deleteModalElement = template.querySelector(
+                  "#delete-work-session"
+                );
+                deleteModalElement.querySelector("#delete-target").innerHTML =
+                  workSession.ID;
+                M.Modal.getInstance(deleteModalElement).open();
+              });
+
             template
               .querySelector("#work-sessions-list")
               .appendChild(workSessionDOM);
