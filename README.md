@@ -46,11 +46,8 @@ Copy the contents of the generated `./dist` directory to the root of your web se
   * MySQL
 
 ### Employee App
-  * HTML, SASS, JS
+  * HTML, CSS, JS
   * Materialize
-  * Yup
-  * Webpack
-  * Babel
 
 ### Employer Dashboard
   * ReactJS
@@ -63,9 +60,19 @@ Copy the contents of the generated `./dist` directory to the root of your web se
 ### API
   * `config/` global variable definitions such as database credentials and application settings.
   * `public/` resources accessible from outside localhost.
-  * `src/` application logic and class definitions.
-    * `src/Framework/` reuseable classes for routing and handling database operations.
+  * `lib/` logic not specific to the project.
+    * `lib/Database` ORM functionality.
+    * `lib/Api` Routing and API functionality.
+  * `src/` application specific logic.
     * `src/Entity/` classes that act as blueprints for the application's main data structures. 
-    * `src/Handler` classes that contain methods for handling certain HTTP requests and sending JSON responses.
-    * `src/Middleware` classes that contain methods for processing incoming HTTP requests before/after the matched handler method has executed.
+    * `src/Handler/` classes that contain methods for handling certain HTTP requests and sending JSON responses.
+    * `src/Middleware/` classes that contain methods for processing incoming HTTP requests before/after the matched handler method has executed.
   * `.htaccess` redirects all HTTP requests to `public/index.php`.
+
+### Employee App
+  * `index.html` HTML structure of the application.
+  * `css/` application styles.
+  * `js/` application logic.
+    * `app.js` main JavaScript entry point of the application.
+    * `eventHandlers/` functions that handle application events.
+    * `lib/` JavaScript code required by external libraries.
