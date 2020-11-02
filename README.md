@@ -3,10 +3,8 @@
 An application that takes the hassle out of the project invoicing process, by automating the collection of work hours completed by employees, and the calculation of project prices.
 
 ## TODO
-  * *__API__* Write the rate-limiting middlewares.
   * *__API__* Write the remaining API routes required for PROJ3.
-  * *__API__* Comment potentially confusing sections of the codebase.
-  * *__Mobile App__* Fill templates with result of fetch requests.
+  * *__Employer Dashboard__* Create the employer dashboard.
 
 ## System Rules
 
