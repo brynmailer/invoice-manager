@@ -35,6 +35,15 @@ class RateLimit {
     $res,
     $next
   ) {
+    if (time() === $_SESSION['lastRequest']) {
+      return $res->withStatus(429);
+    }
 
+    $_SESSION['lastRequest'] = time();
+
+    return $next(
+      $req,
+      $res
+    );
   }
 }
