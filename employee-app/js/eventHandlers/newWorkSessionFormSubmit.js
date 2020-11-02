@@ -40,32 +40,25 @@ export const newWorkSessionFormSubmit = (event) => {
     return false;
   }
 
-  fetch("/api/auth/me", {
-    method: "GET",
+  const employee = JSON.parse(localStorage.getItem("employee"));
+
+  fetch(`/api/employee/${employee.ID}/work-sessions`, {
+    method: "POST",
     mode: "same-origin",
     credentials: "include",
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      fetch(`/api/employee/${data.employee.ID}/work-sessions`, {
-        method: "POST",
-        mode: "same-origin",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          employeeID: data.employee.ID,
-          projectID: document.querySelector("#new-work-session-project").value,
-          start: startDateTime,
-          finish: finishDateTime,
-          description: document.querySelector("#new-work-session-description")
-            .value,
-        }),
-      }).then(
-        (res) =>
-          res.status === 201 &&
-          showPage("work-sessions", true, loadWorkSessions)
-      );
-    });
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      employeeID: data.employee.ID,
+      projectID: document.querySelector("#new-work-session-project").value,
+      start: startDateTime,
+      finish: finishDateTime,
+      description: document.querySelector("#new-work-session-description")
+        .value,
+    }),
+  }).then(
+    (res) =>
+      res.status === 201 && showPage("work-sessions", true, loadWorkSessions)
+  );
 };

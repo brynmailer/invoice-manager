@@ -16,17 +16,21 @@ export const loginFormSubmit = (event) => {
       email: event.target[0].value,
       password: event.target[1].value,
     }),
-  }).then((res) => {
-    switch (res.status) {
-      case 401:
-        M.toast({
-          html: "Login details are invalid",
-          classes: "red",
-        });
-        break;
-      case 200:
-        showPage("work-sessions", true, loadWorkSessions);
-        break;
-    }
-  });
+  })
+    .then((res) => {
+      switch (res.status) {
+        case 401:
+          M.toast({
+            html: "Login details are invalid",
+            classes: "red",
+          });
+          break;
+        case 200:
+          return res.json();
+      }
+    })
+    .then((data) => {
+      localStorage.setItem("employee", JSON.stringify(data.employee));
+      showPage("work-sessions", true, loadWorkSessions);
+    });
 };

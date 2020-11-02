@@ -1,0 +1,40 @@
+<?php declare(strict_types=1);
+
+namespace App\Middleware;
+
+class RateLimit {
+  public function fixedWindowDay(
+    $req,
+    $res,
+    $next
+  ) {
+    if (!isset($_SESSION['window'])) $_SESSION['window'] = [
+      'start' => time(),
+      'count' => 0
+    ];
+
+    $_SESSION['window']['count']++;
+
+    if (time() > $_SESSION['window']['start'] + RATELIMIT_WINDOW) {
+      $_SESSION['window'] = [
+        'start' => time(),
+        'count' => 1
+      ];
+    } else if ($_SESSION['window']['count'] > RATELIMIT_COUNT) {
+      return $res->withStatus(429);
+    }
+
+    return $next(
+      $req,
+      $res
+    );
+  }
+
+  public function fixedWindowSec(
+    $req,
+    $res,
+    $next
+  ) {
+
+  }
+}

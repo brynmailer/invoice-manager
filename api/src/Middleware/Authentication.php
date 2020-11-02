@@ -18,7 +18,10 @@ class Authentication {
       ]
     ]);
 
-    if (\count($user) !== 1) unset($_SESSION['userID']);
+    if (\count($user) !== 1){
+      unset($_SESSION['userID']);
+      return $res->withStatus(401);
+    }
 
     return $next(
       $req->withAttribute('user', $user[0]),

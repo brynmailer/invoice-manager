@@ -17,25 +17,19 @@ export const deleteWorkSessionConfirmBtnClick = () => {
 
   modal.appendChild(modalContent);
 
-  fetch("/api/auth/me", {
-    method: "GET",
-    mode: "same-origin",
-    credentials: "include",
-  })
-    .then((res) => res.status === 200 && res.json())
-    .then((data) => {
-      const workSessionIDContainer = document.querySelector("#delete-target");
-      fetch(
-        `/api/employee/${data.employee.ID}/work-session/${workSessionIDContainer.innerHTML}`,
-        {
-          method: "DELETE",
-          mode: "same-origin",
-          credentials: "include",
-        }
-      ).then(
-        (res) =>
-          res.status === 204 &&
-          showPage("work-sessions", true, loadWorkSessions)
-      );
-    });
+  const employee = JSON.parse(localStorage.getItem("employee"));
+
+  fetch(
+    `/api/employee/${employee.ID}/work-session/${localStorage.getItem(
+      "targetWorkSession"
+    )}`,
+    {
+      method: "DELETE",
+      mode: "same-origin",
+      credentials: "include",
+    }
+  ).then(
+    (res) =>
+      res.status === 204 && showPage("work-sessions", true, loadWorkSessions)
+  );
 };
