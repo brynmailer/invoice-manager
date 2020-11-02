@@ -83,48 +83,45 @@ class Authentication {
       ->withStatus(200);
   }
 
-  public function status(
-    $req,
-    $res,
-    $next
-  ) {
-    return $res
-      ->withStatus(200);
-  }
-
   public function me(
     $req,
     $res,
     $next
   ) {
+    $result;
     switch ($_SESSION['userRole']) {
       case "employee":
-        return $res
-          ->withStatus(200)
-          ->withPayload([
-            'employee' => Entity\Employee::select([
-              'where' => [
-                'userID' => $req->getAttribute('user')->ID
-              ],
-              'expand' => [
-                'user'
-              ]
-            ])[0]
-          ]);
+        $result = Entity\Employee::select([
+          'where' => [
+            'userID' => $req->getAttribute('user')->ID
+          ],
+          'expand' => [
+            'user'
+          ]
+        ]);
+        break;
 
       case "employer":
-        return $res
-          ->withStatus(200)
-          ->withPayload([
-            'employer' => Entity\Employer::select([
-              'where' => [
-                'userID' => $req->getAttribute('user')->ID
-              ],
-              'expand' => [
-                'user'
-              ]
-            ])[0]
-          ]);
+        $result = Entity\Employer::select([
+          'where' => [
+            'userID' => $req->getAttribute('user')->ID
+          ],
+          'expand' => [
+            'user'
+          ]
+        ]);
+        break;
     }
+
+    if (\count($result) !== 1) return $res->withStatus(401);
+
+    unset($result[0]->userID);
+    unset($result[0]->user->password);
+
+    return $res
+      ->withStatus(200)
+      ->withPayload([
+        $_SESSION['userRole'] => $result[0]
+      ]);
   }
 }

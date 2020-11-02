@@ -8,6 +8,7 @@ export const logoutBtnClick = () => {
   }).then((res) => {
     switch (res.status) {
       case 200:
+        localStorage.removeItem("employee");
         showPage("login", false);
         break;
     }

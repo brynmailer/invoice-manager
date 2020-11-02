@@ -16,6 +16,100 @@
   caret-color: transparent;
 }
 
+/* Blue Theme */
+body.blue {
+  background-color: #f7f7f7 !important;
+  font-weight: normal;
+}
+
+body.blue nav {
+  background-color: #6a8eae;
+}
+
+body.blue #new-work-session-btn a {
+  background-color: #9bd1e5;
+}
+
+body.blue .spinner-layer {
+  border-color: #6a8eae;
+}
+
+body.blue input[type="submit"] {
+  background-color: #6a8eae;
+}
+
+body.blue .timepicker-digital-display {
+  background-color: #6a8eae;
+}
+
+body.blue .timepicker-svg circle {
+  fill: #6a8eae;
+}
+
+body.blue .timepicker-svg line {
+  stroke: #6a8eae;
+}
+
+body.blue .datepicker-date-display {
+  background-color: #6a8eae;
+}
+
+body.blue .datepicker-row td.is-today {
+  color: #6a8eae;
+}
+
+body.blue .datepicker-row td.is-selected {
+  color: #ffffff;
+  background-color: #6a8eae;
+}
+
+body.blue .confirmation-btns button {
+  color: #6a8eae;
+}
+
+body.blue input:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid #6a8eae;
+  box-shadow: 0 1px 0 0 #6a8eae;
+}
+
+body.blue input:not(.browser-default):focus:not([readonly]) + label {
+  color: #6a8eae;
+}
+
+body.blue textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #6a8eae;
+  box-shadow: 0 1px 0 0 #6a8eae;
+}
+
+body.blue textarea:focus:not([readonly]) + label {
+  color: #6a8eae;
+}
+
+body.blue .dropdown-content li > a,
+.dropdown-content li > span {
+  color: #6a8eae;
+}
+
+body.blue .select-wrapper input.select-dropdown:focus {
+  border-bottom: 1px solid #6a8eae;
+}
+
+body.blue .switch label input[type="checkbox"]:checked + .lever {
+  background-color: #6a8eae;
+}
+
+body.blue .switch label input[type="checkbox"]:checked + .lever:after {
+  background-color: #6a8eae;
+}
+
+body.blue h1 {
+  color: #6a8eae;
+}
+
+body.blue #login-form button[type="submit"] {
+  background-color: #6a8eae;
+}
+
 /* Utility */
 .m-1 {
   margin: 10px;

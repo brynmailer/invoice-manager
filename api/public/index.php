@@ -20,6 +20,7 @@ $router = new Api\Router();
 $_POST = json_decode(file_get_contents("php://input"), true);
 
 $loggingMiddleware = new Middleware\Logging();
+$rateLimitMiddleware = new Middleware\RateLimit();
 $authMiddleware = new Middleware\Authentication();
 
 $authHandler = new Handler\Authentication();
@@ -27,26 +28,22 @@ $router
   ->route('/api/auth/login')
   ->post([
     [$loggingMiddleware, 'logAction'],
+    [$rateLimitMiddleware, 'fixedWindowDay'],
     [$authHandler, 'login']
   ]);
 $router
   ->route('/api/auth/logout')
   ->get([
     [$loggingMiddleware, 'logAction'],
+    [$rateLimitMiddleware, 'fixedWindowDay'],
     [$authMiddleware, 'isAuthenticated'],
     [$authHandler, 'logout']
-  ]);
-$router
-  ->route('/api/auth/status')
-  ->get([
-    [$loggingMiddleware, 'logAction'],
-    [$authMiddleware, 'isAuthenticated'],
-    [$authHandler, 'status']
   ]);
 $router
   ->route('/api/auth/me')
   ->get([
     [$loggingMiddleware, 'logAction'],
+    [$rateLimitMiddleware, 'fixedWindowDay'],
     [$authMiddleware, 'isAuthenticated'],
     [$authHandler, 'me']
   ]);
@@ -57,12 +54,14 @@ $router
   ->route('/api/employee/:employeeID/work-sessions')
   ->get([
     [$loggingMiddleware, 'logAction'],
+    [$rateLimitMiddleware, 'fixedWindowDay'],
     [$authMiddleware, 'isAuthenticated'],
     [$authMiddleware, 'canAccessEmployee'],
     [$workSessionsHandler, 'getWorkSessions']
   ])
   ->post([
     [$loggingMiddleware, 'logAction'],
+    [$rateLimitMiddleware, 'fixedWindowDay'],
     [$authMiddleware, 'isAuthenticated'],
     [$authMiddleware, 'canAccessEmployee'],
     [$workSessionsHandler, 'createWorkSession']
@@ -71,6 +70,7 @@ $router
   ->route('/api/employee/:employeeID/work-session/:workSessionID')
   ->put([
     [$loggingMiddleware, 'logAction'],
+    [$rateLimitMiddleware, 'fixedWindowDay'],
     [$authMiddleware, 'isAuthenticated'],
     [$authMiddleware, 'canAccessEmployee'],
     [$workSessionsMiddleware, 'workSessionExists'],
@@ -78,6 +78,7 @@ $router
   ])
   ->delete([
     [$loggingMiddleware, 'logAction'],
+    [$rateLimitMiddleware, 'fixedWindowDay'],
     [$authMiddleware, 'isAuthenticated'],
     [$authMiddleware, 'canAccessEmployee'],
     [$workSessionsMiddleware, 'workSessionExists'],
@@ -89,6 +90,7 @@ $router
   ->route('/api/employee/:employeeID/projects')
   ->get([
     [$loggingMiddleware, 'logAction'],
+    [$rateLimitMiddleware, 'fixedWindowDay'],
     [$authMiddleware, 'isAuthenticated'],
     [$authMiddleware, 'canAccessEmployee'],
     [$projectsHandler, 'getProjects']

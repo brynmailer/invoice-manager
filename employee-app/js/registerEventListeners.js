@@ -4,6 +4,7 @@ import { settingsBtnClick } from "./eventHandlers/settingsBtnClick.js";
 import { logoutBtnClick } from "./eventHandlers/logoutBtnClick.js";
 import { newWorkSessionFormSubmit } from "./eventHandlers/newWorkSessionFormSubmit.js";
 import { deleteWorkSessionConfirmBtnClick } from "./eventHandlers/deleteWorkSessionConfirmBtnClick.js";
+import { blueModeSwitchChange } from "./eventHandlers/blueModeSwitchChange.js";
 
 export const registerEventListeners = (pageName, navbar) => {
   document.querySelectorAll(".timepicker,.datepicker").forEach((element) =>
@@ -48,6 +49,13 @@ export const registerEventListeners = (pageName, navbar) => {
       document
         .getElementById("delete-work-session-confirm-btn")
         .addEventListener("click", deleteWorkSessionConfirmBtnClick);
+      break;
+
+    case "settings":
+      document
+        .getElementById("blue-mode-switch")
+        .querySelector("input")
+        .addEventListener("change", blueModeSwitchChange);
       break;
   }
 };
