@@ -1,4 +1,5 @@
 #!/bin/bash
+#mysql -u root -e 'DROP DATABASE invoice-manager';
 mysql -u root -e 'CREATE DATABASE invoice-manager';
 mysql -u root invoice-manager < invoice-manager.sql 
 
