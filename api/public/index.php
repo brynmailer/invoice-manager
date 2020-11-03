@@ -25,25 +25,34 @@ $authMiddleware = new Middleware\Authentication();
 
 $authHandler = new Handler\Authentication();
 $router
-  ->route('/api/auth/login')
-  ->post([
+  ->route(BASE_PATH . '/auth/login')
+  ->all(PRODUCTION ? [
     [$loggingMiddleware, 'logAction'],
     [$rateLimitMiddleware, 'fixedWindowDay'],
+    [$rateLimitMiddleware, 'fixedWindowSec']
+  ] : [])
+  ->post([
     [$authHandler, 'login']
   ]);
 $router
-  ->route('/api/auth/logout')
-  ->get([
+  ->route(BASE_PATH . '/auth/logout')
+  ->all(PRODUCTION ? [
     [$loggingMiddleware, 'logAction'],
     [$rateLimitMiddleware, 'fixedWindowDay'],
+    [$rateLimitMiddleware, 'fixedWindowSec']
+  ] : [])
+  ->get([
     [$authMiddleware, 'isAuthenticated'],
     [$authHandler, 'logout']
   ]);
 $router
-  ->route('/api/auth/me')
-  ->get([
+  ->route(BASE_PATH . '/auth/me')
+  ->all(PRODUCTION ? [
     [$loggingMiddleware, 'logAction'],
     [$rateLimitMiddleware, 'fixedWindowDay'],
+    [$rateLimitMiddleware, 'fixedWindowSec']
+  ] : [])
+  ->get([
     [$authMiddleware, 'isAuthenticated'],
     [$authHandler, 'me']
   ]);
@@ -51,34 +60,36 @@ $router
 $workSessionsMiddleware = new Middleware\WorkSessions();
 $workSessionsHandler = new Handler\WorkSessions();
 $router
-  ->route('/api/employee/:employeeID/work-sessions')
-  ->get([
+  ->route(BASE_PATH . '/employee/:employeeID/work-sessions')
+  ->all(PRODUCTION ? [
     [$loggingMiddleware, 'logAction'],
     [$rateLimitMiddleware, 'fixedWindowDay'],
+    [$rateLimitMiddleware, 'fixedWindowSec']
+  ] : [])
+  ->get([
     [$authMiddleware, 'isAuthenticated'],
     [$authMiddleware, 'canAccessEmployee'],
     [$workSessionsHandler, 'getWorkSessions']
   ])
   ->post([
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
     [$authMiddleware, 'isAuthenticated'],
     [$authMiddleware, 'canAccessEmployee'],
     [$workSessionsHandler, 'createWorkSession']
   ]);
 $router
-  ->route('/api/employee/:employeeID/work-session/:workSessionID')
-  ->put([
+  ->route(BASE_PATH . '/employee/:employeeID/work-session/:workSessionID')
+  ->all(PRODUCTION ? [
     [$loggingMiddleware, 'logAction'],
     [$rateLimitMiddleware, 'fixedWindowDay'],
+    [$rateLimitMiddleware, 'fixedWindowSec']
+  ] : [])
+  ->put([
     [$authMiddleware, 'isAuthenticated'],
     [$authMiddleware, 'canAccessEmployee'],
     [$workSessionsMiddleware, 'workSessionExists'],
     [$workSessionsHandler, 'editWorkSession']
   ])
   ->delete([
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
     [$authMiddleware, 'isAuthenticated'],
     [$authMiddleware, 'canAccessEmployee'],
     [$workSessionsMiddleware, 'workSessionExists'],
@@ -87,10 +98,13 @@ $router
 
 $projectsHandler = new Handler\Projects();
 $router
-  ->route('/api/employee/:employeeID/projects')
-  ->get([
+  ->route(BASE_PATH . '/employee/:employeeID/projects')
+  ->all(PRODUCTION ? [
     [$loggingMiddleware, 'logAction'],
     [$rateLimitMiddleware, 'fixedWindowDay'],
+    [$rateLimitMiddleware, 'fixedWindowSec']
+  ] : [])
+  ->get([
     [$authMiddleware, 'isAuthenticated'],
     [$authMiddleware, 'canAccessEmployee'],
     [$projectsHandler, 'getProjects']
