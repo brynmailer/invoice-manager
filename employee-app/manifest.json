@@ -1,0 +1,21 @@
+{
+  "short_name": "Invoice Manager",
+  "name": "Easy Invoice Manager",
+  "description": "Invoice management for small businesses.",
+  "icons": [
+    {
+      "src": "images/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "images/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "fullscreen",
+  "theme_color": "#6a8eae",
+  "background_color": "#f7f7f7"
+}
