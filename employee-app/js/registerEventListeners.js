@@ -3,6 +3,7 @@ import { workSessionsBtnClick } from "./eventHandlers/workSessionsBtnClick.js";
 import { settingsBtnClick } from "./eventHandlers/settingsBtnClick.js";
 import { logoutBtnClick } from "./eventHandlers/logoutBtnClick.js";
 import { newWorkSessionFormSubmit } from "./eventHandlers/newWorkSessionFormSubmit.js";
+import { editWorkSessionFormSubmit } from "./eventHandlers/editWorkSessionFormSubmit.js";
 import { deleteWorkSessionConfirmBtnClick } from "./eventHandlers/deleteWorkSessionConfirmBtnClick.js";
 import { blueModeSwitchChange } from "./eventHandlers/blueModeSwitchChange.js";
 
@@ -45,6 +46,10 @@ export const registerEventListeners = (pageName, navbar) => {
       document
         .getElementById("new-work-session-form")
         .addEventListener("submit", newWorkSessionFormSubmit);
+
+      document
+        .getElementById("edit-work-session-form")
+        .addEventListener("submit", editWorkSessionFormSubmit);
 
       document
         .getElementById("delete-work-session-confirm-btn")

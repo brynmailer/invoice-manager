@@ -2,7 +2,7 @@ import { inputInvalid } from "../inputInvalid.js";
 import { showPage } from "../showPage.js";
 import { loadWorkSessions } from "../loadWorkSessions.js";
 
-export const newWorkSessionFormSubmit = (event) => {
+export const editWorkSessionFormSubmit = (event) => {
   event.preventDefault();
 
   for (let element of event.target.elements) {
@@ -12,23 +12,23 @@ export const newWorkSessionFormSubmit = (event) => {
   }
 
   const startDateTime =
-    document.querySelector("#new-work-session-start-date").value +
+    document.querySelector("#edit-work-session-start-date").value +
     " " +
-    document.querySelector("#new-work-session-start-time").value +
+    document.querySelector("#edit-work-session-start-time").value +
     ":00";
   const finishDateTime =
-    document.querySelector("#new-work-session-finish-date").value +
+    document.querySelector("#edit-work-session-finish-date").value +
     " " +
-    document.querySelector("#new-work-session-finish-time").value +
+    document.querySelector("#edit-work-session-finish-time").value +
     ":00";
 
   if (new Date(finishDateTime) < new Date(startDateTime)) {
     for (let element of event.target.elements) {
       if (
-        element.id === "new-work-session-start-time" ||
-        element.id === "new-work-session-start-date" ||
-        element.id === "new-work-session-finish-time" ||
-        element.id === "new-work-session-finish-date"
+        element.id === "edit-work-session-start-time" ||
+        element.id === "edit-work-session-start-date" ||
+        element.id === "edit-work-session-finish-time" ||
+        element.id === "edit-work-session-finish-date"
       ) {
         element.classList.add("invalid");
       }
@@ -42,24 +42,26 @@ export const newWorkSessionFormSubmit = (event) => {
   }
 
   const employee = JSON.parse(localStorage.getItem("employee"));
+  const targetWorkSession = localStorage.getItem("targetWorkSession");
 
-  fetch(`/api/employee/${employee.ID}/work-sessions`, {
-    method: "POST",
+  fetch(`/api/employee/${employee.ID}/work-session/${targetWorkSession}`, {
+    method: "PUT",
     mode: "same-origin",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      ID: targetWorkSession,
       employeeID: employee.ID,
-      projectID: document.querySelector("#new-work-session-project").value,
+      projectID: document.querySelector("#edit-work-session-project").value,
       start: startDateTime,
       finish: finishDateTime,
-      description: document.querySelector("#new-work-session-description")
+      description: document.querySelector("#edit-work-session-description")
         .value,
     }),
   }).then(
     (res) =>
-      res.status === 201 && showPage("work-sessions", true, loadWorkSessions)
+      res.status === 200 && showPage("work-sessions", true, loadWorkSessions)
   );
 };
