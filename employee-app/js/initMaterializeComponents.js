@@ -16,9 +16,11 @@ export const initMaterializeComponents = () => {
     dismissible: false,
   });
 
-  M.Timepicker.init(document.querySelectorAll(".timepicker"));
+  M.Timepicker.init(document.querySelectorAll(".timepicker"), {
+    twelveHour: false,
+  });
 
-  M.Datepicker.init(document.querySelectorAll(".datepicker"));
-
-  M.FormSelect.init(document.querySelectorAll("select"));
+  M.Datepicker.init(document.querySelectorAll(".datepicker"), {
+    format: "yyyy-mm-dd",
+  });
 };

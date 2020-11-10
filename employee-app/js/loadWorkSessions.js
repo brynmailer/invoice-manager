@@ -30,13 +30,27 @@ export const loadWorkSessions = (template) => {
           projectDOM.innerHTML = project.title;
 
           template
+            .querySelector("#edit-work-session-project")
+            .appendChild(projectDOM);
+        });
+
+        M.FormSelect.init(template.querySelector("#edit-work-session-project"));
+
+        projects.forEach((project) => {
+          const projectDOM = workSessionProjectTemplate.content.firstElementChild.cloneNode(
+            true
+          );
+
+          projectDOM.value = project.ID;
+
+          projectDOM.innerHTML = project.title;
+
+          template
             .querySelector("#new-work-session-project")
             .appendChild(projectDOM);
-
-          M.FormSelect.init(
-            template.querySelector("#new-work-session-project")
-          );
         });
+
+        M.FormSelect.init(template.querySelector("#new-work-session-project"));
       });
   });
 
@@ -59,7 +73,10 @@ export const loadWorkSessions = (template) => {
 
           workSessionDOM.querySelector(
             ".work-session-header"
-          ).firstElementChild.innerHTML = `${workSession.start} <strong>-</strong> ${workSession.finish}`;
+          ).firstElementChild.innerHTML = `${workSession.start.slice(
+            0,
+            16
+          )} - ${workSession.finish.slice(0, 16)}`;
 
           workSessionDOM.querySelector(
             ".work-session-project-title"
@@ -86,9 +103,57 @@ export const loadWorkSessions = (template) => {
               );
               localStorage.setItem("targetWorkSession", workSession.ID);
 
-              template.querySelector("#edit-work-session-start-time").value =
-                workSession.start;
+              const startTimepickerEl = template.querySelector(
+                "#edit-work-session-start-time"
+              );
+              const startTimepickerInstance = M.Timepicker.getInstance(
+                startTimepickerEl
+              );
+              startTimepickerEl.value = workSession.start.slice(11, 16);
+              startTimepickerInstance.time = startTimepickerEl.value;
 
+              const finishTimepickerEl = template.querySelector(
+                "#edit-work-session-finish-time"
+              );
+              const finishTimepickerInstance = M.Timepicker.getInstance(
+                finishTimepickerEl
+              );
+              finishTimepickerEl.value = workSession.finish.slice(11, 16);
+              finishTimepickerInstance.time = finishTimepickerEl.value;
+
+              const startDatepickerEl = template.querySelector(
+                "#edit-work-session-start-date"
+              );
+              const startDatepickerInstance = M.Datepicker.getInstance(
+                startDatepickerEl
+              );
+              startDatepickerInstance.setDate(new Date(workSession.start));
+              startDatepickerEl.value = workSession.start.slice(0, 10);
+
+              const finishDatepickerEl = template.querySelector(
+                "#edit-work-session-finish-date"
+              );
+              const finishDatepickerInstance = M.Datepicker.getInstance(
+                finishDatepickerEl
+              );
+              finishDatepickerInstance.setDate(new Date(workSession.finish));
+              finishDatepickerEl.value = workSession.finish.slice(0, 10);
+
+              const projectSelect = template.querySelector(
+                "#edit-work-session-project"
+              );
+
+              projectSelect.querySelectorAll("option").forEach((project) => {
+                if (project.value === workSession.projectID) {
+                  projectSelect.value = project.value;
+                }
+              });
+
+              template.querySelector("#edit-work-session-description").value =
+                workSession.description;
+
+              M.updateTextFields();
+              M.FormSelect.init(template.querySelectorAll("select"));
               M.Modal.getInstance(editModalElement).open();
             });
 

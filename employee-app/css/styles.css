@@ -77,6 +77,7 @@ body.blue input:not(.browser-default):focus:not([readonly]) + label {
 }
 
 body.blue textarea.materialize-textarea:focus:not([readonly]) {
+  border: none;
   border-bottom: 1px solid #6a8eae;
   box-shadow: 0 1px 0 0 #6a8eae;
 }
