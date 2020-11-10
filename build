@@ -9,7 +9,7 @@ cd ../
 
 cd ./employer-dashboard
 npm install
-yarn build
+npm run build
 cd ../
 
 [ -d ./dist ] && rm -rf ./dist

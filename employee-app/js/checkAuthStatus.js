@@ -1,5 +1,5 @@
 export const checkAuthStatus = async () => {
-  const res = await fetch("/api/auth/me", {
+  const res = await fetch("/api/auth/user", {
     method: "GET",
     mode: "same-origin",
     credentials: "include",

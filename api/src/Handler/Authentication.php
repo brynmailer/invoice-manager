@@ -83,7 +83,7 @@ class Authentication {
       ->withStatus(200);
   }
 
-  public function me(
+  public function user(
     $req,
     $res,
     $next
