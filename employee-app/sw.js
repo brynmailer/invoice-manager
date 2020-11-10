@@ -3,7 +3,7 @@ const PRECACHE = "invoice-manager-precache" + VERSION;
 const RUNTIME = "runtime";
 
 const FILES_TO_CACHE = [
-  "/",
+  "./",
   "index.html",
   "css/styles.css",
   "css/materialize.css",
@@ -58,7 +58,10 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  if (event.request.url.startsWith(self.location.origin)) {
+  if (
+    event.request.url.startsWith(self.location.origin) &&
+    event.request.url.includes("/api")
+  ) {
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
         if (cachedResponse) {

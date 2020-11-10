@@ -46,7 +46,7 @@ $router
     [$authHandler, 'logout']
   ]);
 $router
-  ->route(BASE_PATH . '/auth/me')
+  ->route(BASE_PATH . '/auth/user')
   ->all(PRODUCTION ? [
     [$loggingMiddleware, 'logAction'],
     [$rateLimitMiddleware, 'fixedWindowDay'],
@@ -54,7 +54,7 @@ $router
   ] : [])
   ->get([
     [$authMiddleware, 'isAuthenticated'],
-    [$authHandler, 'me']
+    [$authHandler, 'user']
   ]);
 
 $workSessionsMiddleware = new Middleware\WorkSessions();
