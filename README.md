@@ -32,6 +32,18 @@ cd invoice-manager
 ./build
 ```
 
+Create a `.env` file inside the `./dist/api` directory, and add the following variables with the appropriate values:
+
+```
+BASE_PATH="PATH TO API DIRECTORY RELATIVE TO LOCALHOST EG. /api"
+DB_HOST="YOUR DATABASE HOST"
+DB_NAME="YOUR DATABASE NAME"
+DB_USERNAME="YOUR DATABASE USERNAME"
+DB_PASSWORD="YOUR DATABASE PASSWORD"
+```
+
+Note: See `./api/config/config.php` for more configuration options.
+
 Copy the contents of the generated `./dist` directory to the root of your web server. Example directory structure:
   * `http/`
     * `api/`
