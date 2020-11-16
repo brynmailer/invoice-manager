@@ -115,7 +115,6 @@ class Authentication {
 
     if (\count($result) !== 1) return $res->withStatus(401);
 
-    unset($result[0]->userID);
     unset($result[0]->user->password);
 
     return $res

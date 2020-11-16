@@ -61,16 +61,21 @@ class WorkSessions {
     $res,
     $next
   ) {
-    $workSession = new Entity\WorkSession([
-      'ID' => $req->getAttribute('params')['workSessionID'],
-      'employeeID' => $req->getAttribute('params')['employeeID'],
-      'projectID' => $req->getParsedBody()['projectID'],
-      'start' => $req->getParsedBody()['start'],
-      'finish' => $req->getParsedBody()['finish'],
-      'description' => $req->getParsedBody()['description']
+    $workSessions = Entity\WorkSession::select([
+      'where' => [
+        'ID' => $req->getAttribute('params')['workSessionID'],
+        'employeeID' => $req->getAttribute('params')['employeeID']
+      ]
     ]);
 
-    $validationErrors = $workSession->validate();
+    if (\count($workSessions) !== 1) return $res->withStatus(404);
+
+    if ($req->getParsedBody()['projectID']) $workSessions[0]->projectID = $req->getParsedBody()['projectID'];
+    if ($req->getParsedBody()['start']) $workSessions[0]->start = $req->getParsedBody()['start'];
+    if ($req->getParsedBody()['finish']) $workSessions[0]->finish = $req->getParsedBody()['finish'];
+    if ($req->getParsedBody()['description']) $workSessions[0]->description = $req->getParsedBody()['description'];
+
+    $validationErrors = $workSessions[0]->validate();
 
     if (\count($validationErrors) > 0) {
       return $res
@@ -82,7 +87,7 @@ class WorkSessions {
         ]);
     }
 
-    $workSession = $workSession->save();
+    $workSession = $workSessions[0]->save();
 
     return $res
       ->withStatus(200)

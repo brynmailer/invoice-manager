@@ -52,8 +52,6 @@ export const editWorkSessionFormSubmit = (event) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      ID: targetWorkSession,
-      employeeID: employee.ID,
       projectID: document.querySelector("#edit-work-session-project").value,
       start: startDateTime,
       finish: finishDateTime,

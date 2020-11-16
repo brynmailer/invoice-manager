@@ -38,7 +38,7 @@ abstract class Entity {
                 if (\strlen($this->{$property}) < $value) $errors[$property][$key] = "Must not contain less than ${value} characters.";
                 break;
             }
-          } else if ($rp->getType()->getType() === 'int') {
+          } else if ($rp->getType()->getName() === 'int') {
             switch ($key) {
               case 'maxLength':
                 if (\strlen((string)$this->{$property}) > $value) $errors[$property][$key] = "Must not contain more than ${value} digits.";

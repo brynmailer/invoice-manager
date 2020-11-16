@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 05, 2020 at 10:44 AM
--- Server version: 10.5.5-MariaDB
--- PHP Version: 7.4.10
+-- Generation Time: Nov 16, 2020 at 02:53 AM
+-- Server version: 10.5.7-MariaDB
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,6 +35,13 @@ CREATE TABLE `employee` (
   `job` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`ID`, `userID`, `employerID`, `hourlyRate`, `job`) VALUES
+('5bf33089-06da-11eb-983a-84fdd1be0091', '2e40c516-06da-11eb-983a-84fdd1be0091', '081388ea-06da-11eb-983a-84fdd1be0091', 5000, 'test');
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +53,13 @@ CREATE TABLE `employer` (
   `userID` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `companyName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `employer`
+--
+
+INSERT INTO `employer` (`ID`, `userID`, `companyName`) VALUES
+('081388ea-06da-11eb-983a-84fdd1be0091', 'dc0591bc-06cd-11eb-983a-84fdd1be0091', 'test');
 
 -- --------------------------------------------------------
 
@@ -105,9 +119,18 @@ CREATE TABLE `log` (
 CREATE TABLE `project` (
   `ID` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `employerID` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `client` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `project`
+--
+
+INSERT INTO `project` (`ID`, `employerID`, `title`, `client`, `description`) VALUES
+('803b45b3-06da-11eb-983a-84fdd1be0091', '081388ea-06da-11eb-983a-84fdd1be0091', 'test project', 'test', 'test'),
+('e6469de1-221a-11eb-98a7-84fdd1be0091', '081388ea-06da-11eb-983a-84fdd1be0091', 'Test Project', 'Tester', 'dwdwdwddw');
 
 -- --------------------------------------------------------
 
@@ -123,6 +146,14 @@ CREATE TABLE `user` (
   `password` char(60) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`ID`, `email`, `firstName`, `lastName`, `password`) VALUES
+('2e40c516-06da-11eb-983a-84fdd1be0091', 'testemployee@test.com', 'test', 'test', '$2y$10$WVEjutsNCupxEgZr6IOv8u/4BAuT1V8QcCix4lobvidQHn27w7drm'),
+('dc0591bc-06cd-11eb-983a-84fdd1be0091', 'testemployer@test.com', 'test', 'test', '$2y$10$PxmD9FiYBCvf9JmTNbkmYObZpUQH6pK6VQqZRXFJ.kGZoXiRi6ygW');
+
 -- --------------------------------------------------------
 
 --
@@ -137,6 +168,23 @@ CREATE TABLE `workSession` (
   `finish` datetime NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `workSession`
+--
+
+INSERT INTO `workSession` (`ID`, `employeeID`, `projectID`, `start`, `finish`, `description`) VALUES
+('3a439b07-1277-11eb-b6d1-013c2a1d130c', '5bf33089-06da-11eb-983a-84fdd1be0091', '803b45b3-06da-11eb-983a-84fdd1be0091', '2020-10-20 11:54:00', '2020-10-21 04:35:00', 'fwfwf'),
+('415a843e-06f7-11eb-983a-84fdd1be0091', '5bf33089-06da-11eb-983a-84fdd1be0091', '803b45b3-06da-11eb-983a-84fdd1be0091', '2020-10-05 16:15:52', '2020-10-05 19:15:13', 'test description'),
+('49f7af45-11a5-11eb-bb72-84fdd1be0091', '5bf33089-06da-11eb-983a-84fdd1be0091', '803b45b3-06da-11eb-983a-84fdd1be0091', '2020-10-19 10:51:00', '2020-10-19 11:51:00', ''),
+('6267dd7a-22e6-11eb-8d56-8a325e3e1cd5', '5bf33089-06da-11eb-983a-84fdd1be0091', 'e6469de1-221a-11eb-98a7-84fdd1be0091', '2020-11-10 23:50:00', '2020-11-12 14:50:00', 'wdw'),
+('65b5ad25-11a5-11eb-bb72-84fdd1be0091', '5bf33089-06da-11eb-983a-84fdd1be0091', '803b45b3-06da-11eb-983a-84fdd1be0091', '2020-10-19 10:51:00', '2020-10-19 11:51:00', ''),
+('72d7f9a5-2798-11eb-bedf-84fdd1be0091', '5bf33089-06da-11eb-983a-84fdd1be0091', 'e6469de1-221a-11eb-98a7-84fdd1be0091', '2020-11-16 13:19:00', '2020-11-16 15:15:00', 'test work session'),
+('7b1869e7-11a5-11eb-bb72-84fdd1be0091', '5bf33089-06da-11eb-983a-84fdd1be0091', '803b45b3-06da-11eb-983a-84fdd1be0091', '2020-10-19 10:51:00', '2020-10-19 11:51:00', 'hi'),
+('8c834929-11a5-11eb-bb72-84fdd1be0091', '5bf33089-06da-11eb-983a-84fdd1be0091', '803b45b3-06da-11eb-983a-84fdd1be0091', '2020-10-19 10:53:00', '2020-10-19 11:53:00', 'dwd'),
+('9207556b-06da-11eb-983a-84fdd1be0091', '5bf33089-06da-11eb-983a-84fdd1be0091', '803b45b3-06da-11eb-983a-84fdd1be0091', '2020-10-05 17:15:14', '2020-10-05 20:15:14', 'test'),
+('c3776f6d-1272-11eb-b6d1-013c2a1d130c', '5bf33089-06da-11eb-983a-84fdd1be0091', '803b45b3-06da-11eb-983a-84fdd1be0091', '2020-10-20 11:22:00', '2020-10-20 12:22:00', ''),
+('d75a6e05-11a7-11eb-bb72-84fdd1be0091', '5bf33089-06da-11eb-983a-84fdd1be0091', '803b45b3-06da-11eb-983a-84fdd1be0091', '2020-10-19 11:09:00', '2020-10-19 12:09:00', 'test 4');
 
 --
 -- Indexes for dumped tables
