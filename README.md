@@ -76,3 +76,7 @@ Copy the contents of the generated `./dist` directory to the root of your web se
     * `app.js` main JavaScript entry point of the application.
     * `eventHandlers/` functions that handle application events.
     * `lib/` JavaScript code required by external libraries.
+
+## Credentials
+Test Employee: testemployee@test.com / password
+Test Employer: testemployer@test.com / password

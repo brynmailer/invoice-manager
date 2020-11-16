@@ -58,10 +58,7 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  if (
-    event.request.url.startsWith(self.location.origin) &&
-    event.request.url.includes("/api")
-  ) {
+  if (event.request.url.startsWith(self.location.href.slice(0, -6))) {
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
         if (cachedResponse) {
