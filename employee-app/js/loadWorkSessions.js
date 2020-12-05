@@ -10,10 +10,8 @@ export const loadWorkSessions = (template) => {
 
   template.appendChild(spinner);
 
-  const employee = JSON.parse(localStorage.getItem("employee"));
-
   new Promise((resolve) => setTimeout(resolve, 1000)).then(() => {
-    fetch(`/api/employee/${employee.ID}/projects`, {
+    fetch(`/api/projects`, {
       method: "GET",
       mode: "same-origin",
       credentials: "include",
@@ -55,7 +53,7 @@ export const loadWorkSessions = (template) => {
   });
 
   new Promise((resolve) => setTimeout(resolve, 2000)).then(() => {
-    fetch(`/api/employee/${employee.ID}/work-sessions`, {
+    fetch(`/api/work-sessions`, {
       method: "GET",
       mode: "same-origin",
       credentials: "include",

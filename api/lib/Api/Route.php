@@ -59,6 +59,18 @@ class Route {
     return $this;
   } 
 
+  public function options(
+    array $handles = []
+  ): Route {
+    foreach ($handles as &$handle) {
+      $layer = new Layer($this->path, $handle);
+      $layer->method = 'options';
+      $this->stack[] = $layer;
+    }
+
+    return $this;
+  } 
+
   public function get(
     array $handles = []
   ): Route {

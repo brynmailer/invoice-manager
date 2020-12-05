@@ -41,10 +41,9 @@ export const editWorkSessionFormSubmit = (event) => {
     return false;
   }
 
-  const employee = JSON.parse(localStorage.getItem("employee"));
   const targetWorkSession = localStorage.getItem("targetWorkSession");
 
-  fetch(`/api/employee/${employee.ID}/work-session/${targetWorkSession}`, {
+  fetch(`/api/work-session/${targetWorkSession}`, {
     method: "PUT",
     mode: "same-origin",
     credentials: "include",

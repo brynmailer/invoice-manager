@@ -12,11 +12,31 @@ class Authentication {
   ) {
     if (!isset($_SESSION['userID'])) return $res->withStatus(401);
 
-    $user = Entity\User::select([
-      'where' => [
-        'ID' => $_SESSION['userID']
-      ]
-    ]);
+    $user;
+
+    switch ($_SESSION['userRole']) {
+      case 'employee':
+        $user = Entity\Employee::select([
+          'where' => [
+            'userID' => $_SESSION['userID']
+          ],
+          'expand' => [
+            'user'
+          ]
+        ]);
+        break;
+
+      case 'employer':
+        $user = Entity\Employer::select([
+          'where' => [
+            'userID' => $_SESSION['userID']
+          ],
+          'expand' => [
+            'user'
+          ]
+        ]);
+        break;
+    }
 
     if (\count($user) !== 1){
       unset($_SESSION['userID']);
@@ -24,34 +44,33 @@ class Authentication {
     }
 
     return $next(
-      $req->withAttribute('user', $user[0]),
+      $req->withAttribute($_SESSION['userRole'], $user[0]),
       $res
     );
   }
 
-  public function canAccessEmployee(
+  public function isEmployer(
     $req,
     $res,
     $next
   ) {
-    $employee = Entity\Employee::select([
-      'where' => [
-        'ID' => $req->getAttribute('params')['employeeID']
-      ],
-      'expand' => [
-        'employer'
-      ]
-    ]);
-
-    if (\count($employee) !== 1) return $res->withStatus(404);
-
-    if (
-      $employee[0]->userID !== $req->getAttribute('user')->ID &&
-      $employee[0]->employer->userID !== $req->getAttribute('user')->ID
-    ) return $res->withStatus(401);
+    if ($_SESSION['userRole'] !== 'employer') return $res->withStatus(401);
 
     return $next(
-      $req->withAttribute('employee', $employee[0]),
+      $req,
+      $res
+    );
+  }
+
+  public function isEmployee(
+    $req,
+    $res,
+    $next
+  ) {
+    if ($_SESSION['userRole'] !== 'employee') return $res->withStatus(401);
+
+    return $next(
+      $req,
       $res
     );
   }

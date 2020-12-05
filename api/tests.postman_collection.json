@@ -102,15 +102,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost/api/employee/5bf33089-06da-11eb-983a-84fdd1be0091/work-sessions",
+					"raw": "http://localhost/api/work-sessions",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"api",
-						"employee",
-						"5bf33089-06da-11eb-983a-84fdd1be0091",
 						"work-sessions"
 					]
 				}
@@ -158,15 +156,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/employee/5bf33089-06da-11eb-983a-84fdd1be0091/work-sessions",
+					"raw": "http://localhost/api/work-sessions",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"api",
-						"employee",
-						"5bf33089-06da-11eb-983a-84fdd1be0091",
 						"work-sessions"
 					]
 				}
@@ -202,15 +198,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost/api/employee/5bf33089-06da-11eb-983a-84fdd1be0091/work-session/{{createdWorkSession}}",
+					"raw": "http://localhost/api/work-session/{{createdWorkSession}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"api",
-						"employee",
-						"5bf33089-06da-11eb-983a-84fdd1be0091",
 						"work-session",
 						"{{createdWorkSession}}"
 					]
@@ -238,15 +232,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost/api/employee/5bf33089-06da-11eb-983a-84fdd1be0091/work-session/{{createdWorkSession}}",
+					"raw": "http://localhost/api/work-session/{{createdWorkSession}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"api",
-						"employee",
-						"5bf33089-06da-11eb-983a-84fdd1be0091",
 						"work-session",
 						"{{createdWorkSession}}"
 					]
@@ -274,15 +266,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost/api/employee/5bf33089-06da-11eb-983a-84fdd1be0091/projects",
+					"raw": "http://localhost/api/projects",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"path": [
 						"api",
-						"employee",
-						"5bf33089-06da-11eb-983a-84fdd1be0091",
 						"projects"
 					]
 				}
@@ -338,7 +328,7 @@
 	],
 	"variable": [
 		{
-			"id": "e69a2880-91c4-45d4-82cf-bb48fef5cfe3",
+			"id": "3c392f7f-d0bc-42b3-8300-0d5d4bcd9ec0",
 			"key": "createdWorkSession",
 			"value": "3e88fe48-27b6-11eb-ac48-84fdd1be0091"
 		}

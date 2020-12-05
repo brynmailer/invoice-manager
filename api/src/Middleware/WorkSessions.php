@@ -13,7 +13,7 @@ class WorkSessions {
     $workSession = Entity\WorkSession::select([
       'where' => [
         'ID' => $req->getAttribute('params')['workSessionID'],
-        'employeeID' => $req->getAttribute('params')['employeeID']
+        'employeeID' => $req->getAttribute('employee')->ID
       ]
     ]);
 

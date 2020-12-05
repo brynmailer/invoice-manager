@@ -1,7 +1,7 @@
 {
-  "short_name": "Invoice Manager",
-  "name": "Easy Invoice Manager",
-  "description": "Invoice management for small businesses.",
+  "short_name": "Employee App",
+  "name": "Invoice Manager - Employee App",
+  "description": "Time tracker application for the Invoice Manager system.",
   "icons": [
     {
       "src": "images/logo-512.png",
@@ -15,7 +15,7 @@
       "sizes": "400x386"
     }
   ],
-  "start_url": "./",
+  "start_url": ".",
   "display": "fullscreen",
   "theme_color": "#6a8eae",
   "background_color": "#f7f7f7"

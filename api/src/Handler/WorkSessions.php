@@ -10,18 +10,34 @@ class WorkSessions {
     $res,
     $next
   ) {
-    return $res
-      ->withStatus(200)
-      ->withPayload(
-        Entity\WorkSession::select([
-          'where' => [
-            'employeeID' => $req->getAttribute('employee')->ID
-          ],
-          'expand' => [
-            'project'
-          ]
-        ])
-      );
+    $workSessions = Entity\WorkSession::select([
+      'expand' => [
+        'project',
+        'employee' => [
+          'user'
+        ]
+      ]
+    ]);
+
+    switch ($_SESSION['userRole']) {
+      case 'employer':
+        return $res
+          ->withStatus(200)
+          ->withPayload(
+            \array_filter($workSessions, function ($workSession) use (&$req) {
+              return $workSession->project->employerID === $req->getAttribute('employer')->ID;
+            })
+          );
+
+      case 'employee':
+        return $res
+          ->withStatus(200)
+          ->withPayload(
+            \array_filter($workSessions, function ($workSession) use (&$req) {
+              return $workSession->employeeID === $req->getAttribute('employee')->ID;
+            })
+          );
+    }
   }
 
   public function createWorkSession(
@@ -61,21 +77,14 @@ class WorkSessions {
     $res,
     $next
   ) {
-    $workSessions = Entity\WorkSession::select([
-      'where' => [
-        'ID' => $req->getAttribute('params')['workSessionID'],
-        'employeeID' => $req->getAttribute('params')['employeeID']
-      ]
-    ]);
+    $workSession = $req->getAttribute('workSession');
 
-    if (\count($workSessions) !== 1) return $res->withStatus(404);
+    if ($req->getParsedBody()['projectID']) $workSession->projectID = $req->getParsedBody()['projectID'];
+    if ($req->getParsedBody()['start']) $workSession->start = $req->getParsedBody()['start'];
+    if ($req->getParsedBody()['finish']) $workSession->finish = $req->getParsedBody()['finish'];
+    if ($req->getParsedBody()['description']) $workSession->description = $req->getParsedBody()['description'];
 
-    if ($req->getParsedBody()['projectID']) $workSessions[0]->projectID = $req->getParsedBody()['projectID'];
-    if ($req->getParsedBody()['start']) $workSessions[0]->start = $req->getParsedBody()['start'];
-    if ($req->getParsedBody()['finish']) $workSessions[0]->finish = $req->getParsedBody()['finish'];
-    if ($req->getParsedBody()['description']) $workSessions[0]->description = $req->getParsedBody()['description'];
-
-    $validationErrors = $workSessions[0]->validate();
+    $validationErrors = $workSession->validate();
 
     if (\count($validationErrors) > 0) {
       return $res
@@ -87,7 +96,7 @@ class WorkSessions {
         ]);
     }
 
-    $workSession = $workSessions[0]->save();
+    $workSession = $workSession->save();
 
     return $res
       ->withStatus(200)
@@ -102,7 +111,7 @@ class WorkSessions {
     Entity\WorkSession::delete([
       'where' => [
         'ID' => $req->getAttribute('params')['workSessionID'],
-        'employeeID' => $req->getAttribute('params')['employeeID']
+        'employeeID' => $req->getAttribute('employee')->ID
       ]
     ]);
 
