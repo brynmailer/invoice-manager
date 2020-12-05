@@ -7,7 +7,7 @@ use Lib\Database\Entity;
 class WorkSession extends Entity {
   public const PRIMARY_KEY = 'ID';
   public const RELATIONS = [
-    'employee' => ['employerID', 'ID'],
+    'employee' => ['employeeID', 'ID'],
     'project' => ['projectID', 'ID']
   ];
   public const SCHEMA = [

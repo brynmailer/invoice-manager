@@ -31,7 +31,7 @@ class Invoice extends Entity {
   public string $ID;
   public string $employerID;
   public string $created;
-  public string $updated;
+  public ?string $updated;
 
   public Employer $employer;
 }

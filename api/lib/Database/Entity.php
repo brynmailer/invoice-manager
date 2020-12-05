@@ -238,6 +238,7 @@ abstract class Entity {
         foreach ($opts['expand'] as $key => $value) {
           if (!\is_array($value)) {
             $relation = $value;
+            $subRelations = null;
           } else {
             $relation = $key;
             $subRelations = $value;

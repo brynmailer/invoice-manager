@@ -17,18 +17,11 @@ export const deleteWorkSessionConfirmBtnClick = () => {
 
   modal.appendChild(modalContent);
 
-  const employee = JSON.parse(localStorage.getItem("employee"));
-
-  fetch(
-    `/api/employee/${employee.ID}/work-session/${localStorage.getItem(
-      "targetWorkSession"
-    )}`,
-    {
-      method: "DELETE",
-      mode: "same-origin",
-      credentials: "include",
-    }
-  ).then(
+  fetch(`/api/work-session/${localStorage.getItem("targetWorkSession")}`, {
+    method: "DELETE",
+    mode: "same-origin",
+    credentials: "include",
+  }).then(
     (res) =>
       res.status === 204 && showPage("work-sessions", true, loadWorkSessions)
   );

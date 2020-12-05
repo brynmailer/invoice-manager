@@ -18,6 +18,10 @@ class Project extends Entity {
       'maxLength' => 36,
       'minLength' => 36
     ],
+    'title' => [
+      'maxLength' => 255,
+      'minLength' => 0
+    ],
     'client' => [
       'maxLength' => 255,
       'minLength' => 0

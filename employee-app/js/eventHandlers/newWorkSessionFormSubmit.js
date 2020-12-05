@@ -41,9 +41,7 @@ export const newWorkSessionFormSubmit = (event) => {
     return false;
   }
 
-  const employee = JSON.parse(localStorage.getItem("employee"));
-
-  fetch(`/api/employee/${employee.ID}/work-sessions`, {
+  fetch(`/api/work-sessions`, {
     method: "POST",
     mode: "same-origin",
     credentials: "include",
@@ -51,7 +49,6 @@ export const newWorkSessionFormSubmit = (event) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      employeeID: employee.ID,
       projectID: document.querySelector("#new-work-session-project").value,
       start: startDateTime,
       finish: finishDateTime,
