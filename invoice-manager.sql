@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 16, 2020 at 02:53 AM
--- Server version: 10.5.7-MariaDB
+-- Generation Time: Dec 05, 2020 at 05:34 AM
+-- Server version: 10.5.8-MariaDB
 -- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -40,7 +40,7 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`ID`, `userID`, `employerID`, `hourlyRate`, `job`) VALUES
-('5bf33089-06da-11eb-983a-84fdd1be0091', '2e40c516-06da-11eb-983a-84fdd1be0091', '081388ea-06da-11eb-983a-84fdd1be0091', 5000, 'test');
+('5bf33089-06da-11eb-983a-84fdd1be0091', '2e40c516-06da-11eb-983a-84fdd1be0091', '081388ea-06da-11eb-983a-84fdd1be0091', 5000, 'testee');
 
 -- --------------------------------------------------------
 
@@ -75,13 +75,11 @@ CREATE TABLE `invoice` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Triggers `invoice`
+-- Dumping data for table `invoice`
 --
-DELIMITER $$
-CREATE TRIGGER `INVOICE_UPDATED` AFTER UPDATE ON `invoice` FOR EACH ROW UPDATE invoice SET invoice.updatedAt = CURRENT_TIMESTAMP()
-WHERE INSERTED.ID = invoice.ID
-$$
-DELIMITER ;
+
+INSERT INTO `invoice` (`ID`, `employerID`, `created`, `updated`) VALUES
+('4ffa2d42-36b5-11eb-b8e2-84fdd1be0091', '081388ea-06da-11eb-983a-84fdd1be0091', '2020-12-05 14:49:52', '2020-12-05 15:12:55');
 
 -- --------------------------------------------------------
 
@@ -92,8 +90,15 @@ DELIMITER ;
 CREATE TABLE `invoiceItem` (
   `ID` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `invoiceID` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `workSessionID` char(16) COLLATE utf8mb4_unicode_ci NOT NULL
+  `workSessionID` char(36) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `invoiceItem`
+--
+
+INSERT INTO `invoiceItem` (`ID`, `invoiceID`, `workSessionID`) VALUES
+('884c1263-36b8-11eb-b8e2-84fdd1be0091', '4ffa2d42-36b5-11eb-b8e2-84fdd1be0091', '72d7f9a5-2798-11eb-bedf-84fdd1be0091');
 
 -- --------------------------------------------------------
 
@@ -109,6 +114,14 @@ CREATE TABLE `log` (
   `userAgent` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `action` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `log`
+--
+
+INSERT INTO `log` (`ID`, `userID`, `timestamp`, `ip`, `userAgent`, `action`) VALUES
+('34c07d12-3502-11eb-bc56-84fdd1be0091', NULL, '2020-12-03 10:55:15', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36', '/api/auth/login'),
+('3c5b0ac5-3502-11eb-bc56-84fdd1be0091', NULL, '2020-12-03 10:55:28', '::1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36', '/api/auth/login');
 
 -- --------------------------------------------------------
 
@@ -129,7 +142,7 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`ID`, `employerID`, `title`, `client`, `description`) VALUES
-('803b45b3-06da-11eb-983a-84fdd1be0091', '081388ea-06da-11eb-983a-84fdd1be0091', 'test project', 'test', 'test'),
+('803b45b3-06da-11eb-983a-84fdd1be0091', '081388ea-06da-11eb-983a-84fdd1be0091', 'test projecter', 'test', 'test'),
 ('e6469de1-221a-11eb-98a7-84fdd1be0091', '081388ea-06da-11eb-983a-84fdd1be0091', 'Test Project', 'Tester', 'dwdwdwddw');
 
 -- --------------------------------------------------------
@@ -152,7 +165,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`ID`, `email`, `firstName`, `lastName`, `password`) VALUES
 ('2e40c516-06da-11eb-983a-84fdd1be0091', 'testemployee@test.com', 'test', 'test', '$2y$10$WVEjutsNCupxEgZr6IOv8u/4BAuT1V8QcCix4lobvidQHn27w7drm'),
-('dc0591bc-06cd-11eb-983a-84fdd1be0091', 'testemployer@test.com', 'test', 'test', '$2y$10$PxmD9FiYBCvf9JmTNbkmYObZpUQH6pK6VQqZRXFJ.kGZoXiRi6ygW');
+('dc0591bc-06cd-11eb-983a-84fdd1be0091', 'testemployer@test.com', 'test', 'test', '$2y$10$WVEjutsNCupxEgZr6IOv8u/4BAuT1V8QcCix4lobvidQHn27w7drm');
 
 -- --------------------------------------------------------
 

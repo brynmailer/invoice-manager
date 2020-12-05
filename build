@@ -8,8 +8,8 @@ composer install
 cd ../
 
 cd ./employer-dashboard
-npm install
-npm run build
+yarn
+yarn run build
 cd ../
 
 [ -d ./dist ] && rm -rf ./dist
