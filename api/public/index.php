@@ -7,6 +7,9 @@ use Lib\Database;
 use Lib\Api; 
 use App\Middleware;
 use App\Handler;
+
+// Instantiated into a global in order to allow all Entities to access the dbManager
+// without having to pass it into each and every Entity constructor.
 global $dbManager;
 $dbManager = new Database\Manager();
 

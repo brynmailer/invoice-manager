@@ -93,7 +93,7 @@ class Employees {
     if ($req->getParsedBody()['email']) $user->email = $req->getParsedBody()['email'];
     if ($req->getParsedBody()['firstName']) $user->firstName = $req->getParsedBody()['firstName'];
     if ($req->getParsedBody()['lastName']) $user->lastName = $req->getParsedBody()['lastName'];
-    if ($req->getParsedBody()['password']) $user->password = \password_hash($req->getParsedBody()['description'], PASSWORD_BCRYPT);
+    if ($req->getParsedBody()['password']) $user->password = \password_hash($req->getParsedBody()['password'], PASSWORD_BCRYPT);
 
     $validationErrors = $user->validate();
 

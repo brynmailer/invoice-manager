@@ -25,6 +25,10 @@ abstract class Entity {
     $class = \get_called_class();
     $errors = [];
 
+    // Uses the PHP reflection API as well as the defined schema constant for the Entity
+    // to determine whether the data within each property is valid.
+    // If invalid, returns a standard validationError object.
+
     foreach ($class::SCHEMA as $property => $rules) {
       if (isset($this->{$property})) {
         foreach ($rules as $key => $value) {

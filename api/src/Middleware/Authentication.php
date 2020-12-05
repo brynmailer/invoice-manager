@@ -10,6 +10,9 @@ class Authentication {
     $res,
     $next
   ) {
+    // If user ID is set in the session, fetch the matching user from the database and attach
+    // it to the request object.
+
     if (!isset($_SESSION['userID'])) return $res->withStatus(401);
 
     $user;

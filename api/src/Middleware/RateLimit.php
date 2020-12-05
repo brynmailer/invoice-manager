@@ -35,6 +35,9 @@ class RateLimit {
     $res,
     $next
   ) {
+    // Checks if current time to the nearest second is the same as the last requests time to the nearest second
+    // if so, denies the request.
+    
     if (time() === $_SESSION['lastRequest']) {
       return $res->withStatus(429);
     }
