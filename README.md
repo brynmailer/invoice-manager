@@ -2,10 +2,6 @@
 
 An application that takes the hassle out of the project invoicing process, by automating the collection of work hours completed by employees, and the calculation of project prices.
 
-## TODO
-  * *__API__* Write the remaining API routes required for PROJ3.
-  * *__Employer Dashboard__* Create the employer dashboard.
-
 ## System Rules
 
 The Invoice Management application operates within the following guidelines:
@@ -22,7 +18,7 @@ The Invoice Management application operates within the following guidelines:
 
 ## Setup
 
-Ensure that you have NodeJS, NPM and Composer installed on your system.
+Ensure that you have NodeJS, Yarn and Composer installed on your system.
 
 ```sh
 git clone https://github.com/brynmailer/invoice-manager.git
@@ -89,6 +85,46 @@ Copy the contents of the generated `./dist` directory to the root of your web se
     * `eventHandlers/` functions that handle application events.
     * `lib/` JavaScript code required by external libraries.
 
-## Credentials
-Test Employee: testemployee@test.com / password
-Test Employer: testemployer@test.com / password
+## Technologies
+
+All technologies needed to run the application are handled by Composer and Yarn. Please ensure that your system has the most up to date versions of these two programs and NodeJS. Note that you can view the version numbers of these technologies, within their respective `composer.json` or `package.json` files.
+
+### API
+  * laminas/laminas-diactoros
+  * laminas/laminas-httphandlerrunner
+  * mnavarrocarter/path-to-regexp-php
+  * vlucas/phpdotenv
+
+### Employee App
+  * MaterializeCSS
+
+### Employer Dashboard
+  * @material-ui/core
+  * @material-ui/data-grid
+  * @material-ui/icons
+  * @material-ui/lab
+  * @react-pdf/renderer
+  * axios
+  * clsx
+  * formik
+  * formik-material-ui
+  * react
+  * react-dom
+  * react-router-dom
+  * react-scripts
+  * shallow-equal
+  * yup
+
+## Similarity to PROJ1 Specification
+
+All of the functionality outlined in PROJ1 was implemented exactly as defined, very little changed. The only major change was the technologies used to complete UX2. I ended up going with a vanilla HTML/CSS/JS approach rather than using a templating engine.
+
+## Roadmap
+
+Going forward, I would like to address timezones so that the application can be used with greater accuracy around the world. i would also like to add support for multiple currencies. There is still a bug with the edit invoice functionality in the employer dashboard where the work sessions present in the invoice are not marked as added when the modal opens. This is due to a lack of the key feature that would be needed to implement this using the Material UI data grid. The datagrid currently does not support preselection of rows. These are a few of the thoughts and things I would like to address in the future.
+
+## Security Tests
+
+[Refer to `./PROJ4-screenshots`]
+
+No issues identified. The form validation prevents any out of range data from being submitted, even if it was submitted the server side checks would return errors and prevent it from being processed. The JS injection was not successful either as ReactJS does not allow dynamic content to run as code. The only place it is possible to request a non existent resource from the server is in the invoice PDF page by modifying the URL. An incorrect ID will result in an empty invoice, as expected.
