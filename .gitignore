@@ -2,5 +2,5 @@
 /**/vendor
 /**/build
 /**/.env
-/**/.pem
+/.pem
 /dist
