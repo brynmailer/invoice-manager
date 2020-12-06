@@ -202,6 +202,17 @@ body.blue #login-form button[type="submit"] {
   position: relative;
 }
 
+/* Help */
+.help {
+  position: absolute;
+  right: 20;
+  top: 0;
+}
+
+.help-container {
+  margin: 10px;
+}
+
 /* Settings */
 .settings-label {
   margin: 0;
