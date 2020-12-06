@@ -6,7 +6,7 @@ const AxiosContext = createContext();
 export const AxiosContextProvider = ({ children }) => {
   const defaultContext = axios.create({
     withCredentials: true,
-    baseURL: "http://localhost/api",
+    baseURL: process.env.REACT_APP_API_HOST + "/api",
   });
 
   return (
