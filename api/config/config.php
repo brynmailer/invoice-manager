@@ -13,10 +13,11 @@ $dotenv->required('DB_USERNAME')->notEmpty();
 $dotenv->required('DB_PASSWORD')->notEmpty();
 
 define('PRODUCTION', $_ENV['PRODUCTION'] ?? false);
+define('FRONTEND_HOST', $_ENV['FRONTEND_HOST'] ?? "http://localhost:3000");
 define('BASE_PATH', $_ENV['BASE_PATH']);
-define('RATELIMIT_WINDOW', $_ENV['RATELIMIT_WINDOW'] ?? 86400);
-define('REQUESTS_PER_WINDOW', $_ENV['REQUESTS_PER_WINDOW'] ?? 1000);
 define('DB_HOST', $_ENV['DB_HOST']);
 define('DB_NAME', $_ENV['DB_NAME']);
 define('DB_USERNAME', $_ENV['DB_USERNAME']);
 define('DB_PASSWORD', $_ENV['DB_PASSWORD']);
+define('RATELIMIT_WINDOW', $_ENV['RATELIMIT_WINDOW'] ?? 86400);
+define('REQUESTS_PER_WINDOW', $_ENV['REQUESTS_PER_WINDOW'] ?? 1000);

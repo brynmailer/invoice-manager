@@ -20,7 +20,7 @@ $router = new Api\Router();
 // Allows Laminas Diactoros' ServerRequestFactory to understand JSON bodies.
 $_POST = json_decode(file_get_contents("php://input"), true);
 
-header("Access-Control-Allow-Origin: http://localhost:3000");
+header("Access-Control-Allow-Origin: " . FRONTEND_HOST);
 header("Access-Control-Allow-Credentials: true");
 header('Access-Control-Allow-Headers: Origin, Content-Type');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
@@ -34,9 +34,7 @@ $authHandler = new Handler\Authentication();
 $router
   ->route(BASE_PATH . '/auth/login')
   ->all(PRODUCTION ? [
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
-    [$rateLimitMiddleware, 'fixedWindowSec']
+    [$loggingMiddleware, 'logAction']
   ] : [])
   ->options([
     [$corsHandler, 'preflight']
@@ -47,9 +45,7 @@ $router
 $router
   ->route(BASE_PATH . '/auth/register')
   ->all(PRODUCTION ? [
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
-    [$rateLimitMiddleware, 'fixedWindowSec']
+    [$loggingMiddleware, 'logAction']
   ] : [])
   ->options([
     [$corsHandler, 'preflight']
@@ -60,9 +56,7 @@ $router
 $router
   ->route(BASE_PATH . '/auth/logout')
   ->all(PRODUCTION ? [
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
-    [$rateLimitMiddleware, 'fixedWindowSec']
+    [$loggingMiddleware, 'logAction']
   ] : [])
   ->options([
     [$corsHandler, 'preflight']
@@ -74,9 +68,7 @@ $router
 $router
   ->route(BASE_PATH . '/auth/user')
   ->all(PRODUCTION ? [
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
-    [$rateLimitMiddleware, 'fixedWindowSec']
+    [$loggingMiddleware, 'logAction']
   ] : [])
   ->options([
     [$corsHandler, 'preflight']
@@ -91,9 +83,7 @@ $workSessionsHandler = new Handler\WorkSessions();
 $router
   ->route(BASE_PATH . '/work-sessions')
   ->all(PRODUCTION ? [
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
-    [$rateLimitMiddleware, 'fixedWindowSec']
+    [$loggingMiddleware, 'logAction']
   ] : [])
   ->options([
     [$corsHandler, 'preflight']
@@ -110,9 +100,7 @@ $router
 $router
   ->route(BASE_PATH . '/work-session/:workSessionID')
   ->all(PRODUCTION ? [
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
-    [$rateLimitMiddleware, 'fixedWindowSec']
+    [$loggingMiddleware, 'logAction']
   ] : [])
   ->options([
     [$corsHandler, 'preflight']
@@ -135,9 +123,7 @@ $projectsMiddleware = new Middleware\Projects();
 $router
   ->route(BASE_PATH . '/projects')
   ->all(PRODUCTION ? [
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
-    [$rateLimitMiddleware, 'fixedWindowSec']
+    [$loggingMiddleware, 'logAction']
   ] : [])
   ->options([
     [$corsHandler, 'preflight']
@@ -154,9 +140,7 @@ $router
 $router
   ->route(BASE_PATH . '/project/:projectID')
   ->all(PRODUCTION ? [
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
-    [$rateLimitMiddleware, 'fixedWindowSec']
+    [$loggingMiddleware, 'logAction']
   ] : [])
   ->options([
     [$corsHandler, 'preflight']
@@ -179,9 +163,7 @@ $employeesMiddleware = new Middleware\Employees();
 $router
   ->route(BASE_PATH . '/employees')
   ->all(PRODUCTION ? [
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
-    [$rateLimitMiddleware, 'fixedWindowSec']
+    [$loggingMiddleware, 'logAction']
   ] : [])
   ->options([
     [$corsHandler, 'preflight']
@@ -199,9 +181,7 @@ $router
 $router
   ->route(BASE_PATH . '/employee/:employeeID')
   ->all(PRODUCTION ? [
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
-    [$rateLimitMiddleware, 'fixedWindowSec']
+    [$loggingMiddleware, 'logAction']
   ] : [])
   ->options([
     [$corsHandler, 'preflight']
@@ -224,9 +204,7 @@ $invoicesMiddleware = new Middleware\Invoices();
 $router
   ->route(BASE_PATH . '/invoices')
   ->all(PRODUCTION ? [
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
-    [$rateLimitMiddleware, 'fixedWindowSec']
+    [$loggingMiddleware, 'logAction']
   ] : [])
   ->options([
     [$corsHandler, 'preflight']
@@ -244,9 +222,7 @@ $router
 $router
   ->route(BASE_PATH . '/invoice/:invoiceID')
   ->all(PRODUCTION ? [
-    [$loggingMiddleware, 'logAction'],
-    [$rateLimitMiddleware, 'fixedWindowDay'],
-    [$rateLimitMiddleware, 'fixedWindowSec']
+    [$loggingMiddleware, 'logAction']
   ] : [])
   ->options([
     [$corsHandler, 'preflight']
