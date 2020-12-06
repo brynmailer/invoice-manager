@@ -2,6 +2,8 @@
 
 An application that takes the hassle out of the project invoicing process, by automating the collection of work hours completed by employees, and the calculation of project prices.
 
+[Hosted application](https://invoice-manager.online)
+
 ## System Rules
 
 The Invoice Management application operates within the following guidelines:
