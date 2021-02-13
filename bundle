@@ -1,0 +1,19 @@
+#!/bin/bash
+mysql -u root -e 'DROP DATABASE invoice-manager';
+mysql -u root -e 'CREATE DATABASE invoice-manager';
+mysql -u root invoice-manager < invoice-manager.sql 
+
+cd ./api
+composer install
+cd ../
+
+cd ./employer-dashboard
+yarn
+yarn run build
+cd ../
+
+[ -d ./dist ] && rm -rf ./dist
+mkdir ./dist
+cp -R ./api ./dist/api
+cp -R ./employee-app ./dist/employee-app
+mv ./employer-dashboard/build ./dist/employer-dashboard
