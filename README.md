@@ -46,7 +46,7 @@ git clone https://github.com/brynmailer/invoice-manager.git
 
 cd invoice-manager
 
-./build
+./bundle
 ```
 
 Copy the contents of the generated `./dist` directory to the root of your web server. Example directory structure:
