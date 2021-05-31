@@ -245,7 +245,7 @@ export const Invoice = () => {
                   </View>
                   <View style={[styles.cell, styles.footerValueCell]}>
                     <Text>
-                      {grandTotal != 0
+                      {grandTotal !== 0
                         ? grandTotal.substring(0, grandTotal.length - 2) +
                           "." +
                           grandTotal.substring(grandTotal.length - 2)

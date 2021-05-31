@@ -20,15 +20,22 @@ The Invoice Management application operates within the following guidelines:
 
 ## Setup
 
+Ensure that you have NodeJS, Yarn and Composer installed on your system before proceeding.
+
+```sh
+git clone https://github.com/brynmailer/invoice-manager.git
+
+```
+
 Create a `.env` file inside the `./api` directory, and add the following variables with the appropriate values:
 
 ```
 BASE_PATH="PATH TO API DIRECTORY RELATIVE TO LOCALHOST EG. /api"
-FRONTEND_HOST="HOST OF THE EMPLOYER DASHBOARD"
 DB_HOST="YOUR DATABASE HOST"
 DB_NAME="YOUR DATABASE NAME"
 DB_USERNAME="YOUR DATABASE USERNAME"
 DB_PASSWORD="YOUR DATABASE PASSWORD"
+PRODUCTION="TRUE OR FALSE"
 ```
 
 Note: See `./api/config/config.php` for more configuration options.
@@ -36,24 +43,12 @@ Note: See `./api/config/config.php` for more configuration options.
 Next create a `.env` file inside the `./employer-dashboard` directory, and add the following variable with the appropriate value:
 
 ```
-REACT_APP_API_HOST="HOST OF THE API"
+REACT_APP_API_PATH="PATH TO THE API FROM LOCALHOST EG. /api"
 ```
 
-Ensure that you have NodeJS, Yarn and Composer installed on your system.
+Run the `./bundle` script located in the root of this repository, this may require the use of `sudo` in order to instantiate the database. If this is the case composer will ask if you want to proceed as root, type yes and hit enter.
 
-```sh
-git clone https://github.com/brynmailer/invoice-manager.git
-
-cd invoice-manager
-
-./bundle
-```
-
-Copy the contents of the generated `./dist` directory to the root of your web server. Example directory structure:
-  * `http/`
-    * `api/`
-    * `employee-app/`
-    * `employer-dashboard/`
+Copy the contents of the generated `./dist` directory to the root directory of your web server.
 
 ## Tech Stack
 

@@ -12,8 +12,7 @@ $dotenv->required('DB_NAME')->notEmpty();
 $dotenv->required('DB_USERNAME')->notEmpty();
 $dotenv->required('DB_PASSWORD')->notEmpty();
 
-define('PRODUCTION', $_ENV['PRODUCTION'] ?? false);
-define('FRONTEND_HOST', $_ENV['FRONTEND_HOST'] ?? "http://localhost:3000");
+define('PRODUCTION', $_ENV['PRODUCTION'] ? (strcasecmp($_ENV['PRODUCTION'], 'true') ? false : true) : false);
 define('BASE_PATH', $_ENV['BASE_PATH']);
 define('DB_HOST', $_ENV['DB_HOST']);
 define('DB_NAME', $_ENV['DB_NAME']);

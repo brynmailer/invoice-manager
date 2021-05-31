@@ -49,14 +49,14 @@ const columns = [
   { field: "project", headerName: "Project", width: 200 },
   { field: "start", headerName: "Start", width: 200 },
   { field: "finish", headerName: "Finish", width: 200 },
-  { field: "duration", headerName: "Duration", width: 120 },
+  { field: "duration", headerName: "Duration", width: 200 },
   { field: "description", headerName: "Description", width: 300 },
 ];
 
 export const NewInvoiceModal = ({ className, open, onClose, ...rest }) => {
   const [loading, setLoading] = useState(true);
   const [workSessions, setWorkSessions] = useState([]);
-  const [selectedWorkSessions, setSelectedWorkSessions] = useState([]);
+  const [selectionModel, setSelectionModel] = useState([]);
   const axios = useAxiosContext();
   const classes = useStyles();
 
@@ -88,7 +88,7 @@ export const NewInvoiceModal = ({ className, open, onClose, ...rest }) => {
     try {
       setLoading(true);
       const response = await axios.post("/invoices", {
-        workSessionIDs: selectedWorkSessions,
+        workSessionIDs: selectionModel,
       });
 
       if (response.status === 201) {
@@ -135,7 +135,7 @@ export const NewInvoiceModal = ({ className, open, onClose, ...rest }) => {
                     employee:
                       workSession.employee.user.firstName +
                       " " +
-                      workSession.employee.user.firstName,
+                      workSession.employee.user.lastName,
                     project: workSession.project.title,
                     start: workSession.start.substring(
                       0,
@@ -155,9 +155,10 @@ export const NewInvoiceModal = ({ className, open, onClose, ...rest }) => {
                   }))}
                   pageSize={10}
                   checkboxSelection
-                  onSelectionChange={(newSelection) =>
-                    setSelectedWorkSessions(newSelection.rowIds)
-                  }
+                  onSelectionModelChange={(newSelection) => {
+                    setSelectionModel(newSelection.selectionModel);
+                  }}
+                  selectionModel={selectionModel}
                 />
               </div>
               <Button

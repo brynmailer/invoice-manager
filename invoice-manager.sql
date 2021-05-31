@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 05, 2020 at 07:32 AM
--- Server version: 10.5.8-MariaDB
--- PHP Version: 7.4.12
+-- Generation Time: May 28, 2021 at 04:22 AM
+-- Server version: 10.5.10-MariaDB
+-- PHP Version: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,6 +35,13 @@ CREATE TABLE `employee` (
   `job` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`ID`, `userID`, `employerID`, `hourlyRate`, `job`) VALUES
+('4d826b73-bf69-11eb-9d0d-84fdd1be0091', '4d81f1d6-bf69-11eb-9d0d-84fdd1be0091', '3ecf23bc-bf69-11eb-9d0d-84fdd1be0091', 3000, 'Test Job');
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +53,13 @@ CREATE TABLE `employer` (
   `userID` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `companyName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `employer`
+--
+
+INSERT INTO `employer` (`ID`, `userID`, `companyName`) VALUES
+('3ecf23bc-bf69-11eb-9d0d-84fdd1be0091', '3ecee8bc-bf69-11eb-9d0d-84fdd1be0091', 'Test Company');
 
 -- --------------------------------------------------------
 
@@ -114,6 +128,14 @@ CREATE TABLE `user` (
   `lastName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` char(60) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`ID`, `email`, `firstName`, `lastName`, `password`) VALUES
+('3ecee8bc-bf69-11eb-9d0d-84fdd1be0091', 'testadmin@test.com', 'Test', 'Admin', '$2y$10$bMzeR9XcQXACo.CJHAu.BeWsSkWDk/T64CLhbaFmQhvrq4PfIGF6m'),
+('4d81f1d6-bf69-11eb-9d0d-84fdd1be0091', 'testemployee@test.com', 'Test', 'Employee', '$2y$10$p0aidRFWQsiLR64HgmDNkujWga9eJWAH71yPKXs5wSKbxBUE.S6iW');
 
 -- --------------------------------------------------------
 

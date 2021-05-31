@@ -15,12 +15,12 @@ class RateLimit {
 
     $_SESSION['window']['count']++;
 
-    if (time() > $_SESSION['window']['start'] + REQUESTS_PER_WINDOW) {
+    if (time() > $_SESSION['window']['start'] + RATELIMIT_WINDOW) {
       $_SESSION['window'] = [
         'start' => time(),
         'count' => 1
       ];
-    } else if ($_SESSION['window']['count'] > RATELIMIT_WINDOW) {
+    } else if ($_SESSION['window']['count'] > REQUESTS_PER_WINDOW) {
       return $res->withStatus(429);
     }
 

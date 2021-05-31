@@ -181,7 +181,7 @@ export const Invoices = () => {
                         </TableCell>
                         <TableCell>{invoice.items.length}</TableCell>
                         <TableCell>
-                          {grandTotal != 0
+                          {grandTotal !== 0
                             ? grandTotal.substring(0, grandTotal.length - 2) +
                               "." +
                               grandTotal.substring(grandTotal.length - 2)

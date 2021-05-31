@@ -1,6 +1,4 @@
-// https://github.com/mui-org/material-ui-x/issues/246
-
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   makeStyles,
   Container,
@@ -51,7 +49,7 @@ const columns = [
   { field: "project", headerName: "Project", width: 200 },
   { field: "start", headerName: "Start", width: 200 },
   { field: "finish", headerName: "Finish", width: 200 },
-  { field: "duration", headerName: "Duration", width: 120 },
+  { field: "duration", headerName: "Duration", width: 200 },
   { field: "description", headerName: "Description", width: 300 },
 ];
 
@@ -64,10 +62,16 @@ export const EditInvoiceModal = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [workSessions, setWorkSessions] = useState([]);
-  const [selectedWorkSessions, setSelectedWorkSessions] = useState([]);
-  const apiRef = useRef(null);
+  const [selectionModel, setSelectionModel] = useState([]);
   const axios = useAxiosContext();
   const classes = useStyles();
+
+  useEffect(() => {
+    if (invoice)
+      setSelectionModel(
+        invoice.items.map((invoiceItem) => invoiceItem.workSession.ID)
+      );
+  }, [invoice, setSelectionModel]);
 
   useEffect(() => {
     let isCancelled = false;
@@ -93,25 +97,11 @@ export const EditInvoiceModal = ({
     };
   }, [setWorkSessions, setLoading, axios]);
 
-  useEffect(() => {
-    if (apiRef.current && workSessions.length > 0) {
-      const rowModels = apiRef.current.getRowModels();
-      apiRef.current.setRowModels(
-        rowModels.map((r) => {
-          r.selected = invoice.items
-            .map((invoiceItem) => invoiceItem.workSession.ID)
-            .includes(r.data.id);
-          return r;
-        })
-      );
-    }
-  }, [workSessions, invoice, apiRef]);
-
   const handleClick = async () => {
     try {
       setLoading(true);
       const response = await axios.put(`/invoice/${invoice.ID}`, {
-        workSessionIDs: selectedWorkSessions,
+        workSessionIDs: selectionModel,
         updated:
           new Date().toISOString().slice(0, 10) +
           " " +
@@ -160,21 +150,13 @@ export const EditInvoiceModal = ({
               </Typography>
               <div className={classes.dataGridContainer}>
                 <DataGrid
-                  components={{
-                    noRowsOverlay: (params) => {
-                      if (!apiRef.current) {
-                        apiRef.current = params.api.current;
-                      }
-                      return <div>No rows</div>;
-                    },
-                  }}
                   columns={columns}
                   rows={workSessions.map((workSession) => ({
                     id: workSession.ID,
                     employee:
                       workSession.employee.user.firstName +
                       " " +
-                      workSession.employee.user.firstName,
+                      workSession.employee.user.lastName,
                     project: workSession.project.title,
                     start: workSession.start.substring(
                       0,
@@ -194,9 +176,10 @@ export const EditInvoiceModal = ({
                   }))}
                   pageSize={10}
                   checkboxSelection
-                  onSelectionChange={(newSelection) =>
-                    setSelectedWorkSessions(newSelection.rowIds)
-                  }
+                  onSelectionModelChange={(newSelection) => {
+                    setSelectionModel(newSelection.selectionModel);
+                  }}
+                  selectionModel={selectionModel}
                 />
               </div>
               <Button
