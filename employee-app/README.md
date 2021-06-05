@@ -2,7 +2,7 @@
 
 ## Roadmap
 
-The UI of this mobile application still possesses a few visual bugs and inconsistencies that are important to fix in the near future. As well as smoothing out the UI, there are a few features such as a work session search bar, and work session categorization that would be good to develop in order to provide a better user experience. It is also important that the application implements an architectural framework some time soon, whether this is ReactJS or another framework is yet to be decided.
+The UI of this mobile application still possesses a few visual bugs and inconsistencies that are important to fix in the near future. As well as smoothing out the UI, there are a few features such as a work session search bar, and work session categorization that would be good to develop in order to provide a better user experience. I would like to rebuild this application as a full native app utilising React Native. This would allow the application to implement many native exclusive features such as push notifications that would greatly improve the user experience. The app lends itself extremely well to the mobile setting, and there is very little reason why it should be localised to the web.
 
 ## Importance of Properly Building and Documenting the Application
 

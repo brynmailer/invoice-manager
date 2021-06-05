@@ -17,3 +17,4 @@ mkdir ./dist
 cp -R ./api ./dist/api
 cp -R ./employee-app ./dist/employee-app
 mv ./employer-dashboard/build/* ./dist
+rm -rf ./employer-dashboard/build

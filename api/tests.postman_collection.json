@@ -1,17 +1,16 @@
 {
 	"info": {
-		"_postman_id": "0aaefd1f-7cf5-4dde-bc40-edbb001760e4",
+		"_postman_id": "565376f3-f01a-481a-8df2-812481d65519",
 		"name": "Invoice Manager API Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "[Employee] Login",
+			"name": "[Employer] Login",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "ef4919a0-5306-4e73-ab26-8aa310efd20d",
 						"exec": [
 							"pm.test(\"Should have status 200 OK\", () => {",
 							"    pm.response.to.have.status(200);",
@@ -26,7 +25,367 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"testemployee@test.com\",\n    \"password\": \"password\",\n    \"role\": \"employee\"\n}",
+					"raw": "{\n    \"email\": \"test@employer.com\",\n    \"password\": \"password\",\n    \"role\": \"employer\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employer] User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should have status 200 OK\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/auth/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"auth",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employer] Get Projects",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should have status 200 OK\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employer] Create Project",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"createdProject\", pm.response.json().ID);",
+							"",
+							"pm.test(\"Should have status 201 Created\", () => {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"test\",\n    \"client\": \"test client\",\n    \"description\": \"test description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/projects",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employer] Edit Project",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should have status 200 OK\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"tester\",\n    \"client\": \"test client\",\n    \"description\": \"test description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/project/{{createdProject}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"project",
+						"{{createdProject}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employer] Get Employees",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should have status 200 OK\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employer] Create Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"createdEmployee\", pm.response.json().ID);",
+							"",
+							"pm.test(\"Should have status 201 Created\", () => {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@employee.com\",\n    \"firstName\": \"test\",\n    \"lastName\": \"test\",\n    \"password\": \"password\",\n    \"hourlyRate\": \"4000\",\n    \"job\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employer] Edit Employee",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should have status 200 OK\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@employee.com\",\n    \"firstName\": \"test\",\n    \"lastName\": \"tester\",\n    \"password\": \"password\",\n    \"hourlyRate\": \"4000\",\n    \"job\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/employee/{{createdEmployee}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"employee",
+						"{{createdEmployee}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employer] Logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should have status 200 OK\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employee] Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should have status 200 OK\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@employee.com\",\n    \"password\": \"password\",\n    \"role\": \"employee\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -54,7 +413,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7ec32ef8-f6ce-48b9-b3be-2b4344dff50b",
 						"exec": [
 							"pm.test(\"Should have status 200 OK\", () => {",
 							"    pm.response.to.have.status(200);",
@@ -88,7 +446,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4e236021-8e99-4d24-bbac-4604a0c17151",
 						"exec": [
 							"pm.test(\"Should have status 200 OK\", () => {",
 							"    pm.response.to.have.status(200);",
@@ -121,7 +478,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "1026bab5-2c66-4e9c-938d-8ae592d57a52",
 						"exec": [
 							""
 						],
@@ -131,7 +487,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c35e5002-00b2-4715-8d56-615c589e7ece",
 						"exec": [
 							"pm.collectionVariables.set(\"createdWorkSession\", pm.response.json().ID);",
 							"",
@@ -148,7 +503,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"employeeID\": \"5bf33089-06da-11eb-983a-84fdd1be0091\",\n    \"projectID\": \"803b45b3-06da-11eb-983a-84fdd1be0091\",\n    \"start\": \"2020-11-16 12:00:00\",\n    \"finish\": \"2020-11-16 13:00:00\",\n    \"description\": \"generated by test script\"\n}",
+					"raw": "{\n    \"employeeID\": \"{{createdEmployee}}\",\n    \"projectID\": \"{{createdProject}}\",\n    \"start\": \"2020-11-16 12:00:00\",\n    \"finish\": \"2020-11-16 13:00:00\",\n    \"description\": \"generated by test script\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -175,7 +530,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "67fa0b0f-afac-41ed-8520-42591fde9ccb",
 						"exec": [
 							"pm.test(\"Should have status 200 OK\", () => {",
 							"    pm.response.to.have.status(200);",
@@ -190,7 +544,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"projectID\": \"e6469de1-221a-11eb-98a7-84fdd1be0091\",\n    \"description\": \"test work session edited\"\n}",
+					"raw": "{\n    \"projectID\": \"{{createdProject}}\",\n    \"description\": \"test work session edited\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -213,46 +567,11 @@
 			"response": []
 		},
 		{
-			"name": "[Employee] Delete Work Session",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "2a38322a-dda4-40c1-a0f5-afad8fed159f",
-						"exec": [
-							"pm.test(\"Should have status 204 No Content\", () => {",
-							"    pm.response.to.have.status(204);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost/api/work-session/{{createdWorkSession}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"work-session",
-						"{{createdWorkSession}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "[Employee] Get Projects",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "5fe4c9f4-9220-49bc-b439-21fdc82ae5e9",
 						"exec": [
 							"pm.test(\"Should have status 204 OK\", () => {",
 							"    pm.response.to.have.status(200);",
@@ -285,7 +604,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0ed28256-32d4-4574-9852-9b0839a660bc",
 						"exec": [
 							"pm.test(\"Should have status 200 OK\", () => {",
 							"    pm.response.to.have.status(200);",
@@ -331,7 +649,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "732de59d-d64a-4bc0-a1b2-e0b9ba96150b",
 						"exec": [
 							"pm.test(\"Should have status 200 OK\", () => {",
 							"    pm.response.to.have.status(200);",
@@ -346,7 +663,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"testemployer@test.com\",\n    \"password\": \"password\",\n    \"role\": \"employer\"\n}",
+					"raw": "{\n    \"email\": \"test@employer.com\",\n    \"password\": \"password\",\n    \"role\": \"employer\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -369,375 +686,11 @@
 			"response": []
 		},
 		{
-			"name": "[Employer] User",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "947cd0ea-21f6-40c4-9e87-cf8275f3fbb9",
-						"exec": [
-							"pm.test(\"Should have status 200 OK\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost/api/auth/user",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"auth",
-						"user"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[Employer] Get Projects",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "fa2bf508-bcec-4620-97a1-d53ee8885752",
-						"exec": [
-							"pm.test(\"Should have status 200 OK\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost/api/projects",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"projects"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[Employer] Create Project",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "4cabc9e7-a013-47db-8386-c9eb126a45d9",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "54a0863e-563f-4ad8-b0e6-6a0c5c3beebc",
-						"exec": [
-							"pm.collectionVariables.set(\"createdProject\", pm.response.json().ID);",
-							"",
-							"pm.test(\"Should have status 201 Created\", () => {",
-							"    pm.response.to.have.status(201);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"title\": \"test\",\n    \"client\": \"test client\",\n    \"description\": \"test description\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost/api/projects",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"projects"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[Employer] Edit Project",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "2ea3b648-f5b4-4b23-a646-8604bfaf1944",
-						"exec": [
-							"pm.test(\"Should have status 200 OK\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost/api/project/{{createdProject}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"project",
-						"{{createdProject}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[Employer] Delete Project",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "ecb345a9-6ebc-4540-b1f4-e30d6ba66a4c",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "25079edc-b6a6-4810-9c98-64f09d005281",
-						"exec": [
-							"pm.test(\"Should have status 204 No Content\", () => {",
-							"    pm.response.to.have.status(204);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost/api/project/{{createdProject}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"project",
-						"{{createdProject}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[Employer] Get Employees",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "0566dfa3-80d2-4f8a-af63-892646240a26",
-						"exec": [
-							"pm.test(\"Should have status 200 OK\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost/api/employees",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"employees"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[Employer] Create Employee",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "ae8e1ba3-2126-4485-abcd-d4f011acda04",
-						"exec": [
-							"pm.collectionVariables.set(\"createdEmployee\", pm.response.json().ID);",
-							"",
-							"pm.test(\"Should have status 201 Created\", () => {",
-							"    pm.response.to.have.status(201);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"test@test.com\",\n    \"firstName\": \"test\",\n    \"lastName\": \"test\",\n    \"password\": \"password\",\n    \"hourlyRate\": \"4000\",\n    \"job\": \"test\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost/api/employees",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"employees"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[Employer] Edit Employee",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "3db4d8ec-1ae5-4eed-acf2-16a6bc9b6907",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "b5e133a3-33bf-4e71-80b9-0d77eb15aefe",
-						"exec": [
-							"pm.test(\"Should have status 200 OK\", () => {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"test@test.com\",\n    \"firstName\": \"test\",\n    \"lastName\": \"tester\",\n    \"password\": \"password\",\n    \"hourlyRate\": \"4000\",\n    \"job\": \"test\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost/api/employee/{{createdEmployee}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"employee",
-						"{{createdEmployee}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "[Employer] Delete Employee",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "2bd71e83-a874-466c-a0e1-0b99ed2bb53f",
-						"exec": [
-							"pm.test(\"Should have status 204 No Content\", () => {",
-							"    pm.response.to.have.status(204);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost/api/employee/{{createdEmployee}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"employee",
-						"{{createdEmployee}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "[Employer] Get Invoices",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "f38c68bc-7c45-4b08-9fcd-43413cf2db3e",
 						"exec": [
 							"pm.test(\"Should have status 200 OK\", () => {",
 							"    pm.response.to.have.status(200);",
@@ -770,7 +723,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "bc93e05b-51c9-4ab8-b751-defe2a05492a",
 						"exec": [
 							"pm.collectionVariables.set(\"createdInvoice\", pm.response.json().ID);",
 							"",
@@ -814,7 +766,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b9c14d27-779d-4eb2-8f46-85934fa6e04e",
 						"exec": [
 							"pm.test(\"Should have status 200 OK\", () => {",
 							"    pm.response.to.have.status(200);",
@@ -848,7 +799,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "dcb4cba1-bf4d-426f-9e31-d6e2f3b4dbd0",
 						"exec": [
 							"pm.test(\"Should have status 200 OK\", () => {",
 							"    pm.response.to.have.status(200);",
@@ -891,7 +841,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "2d0e88f0-f763-4b98-b7e9-9f2291a35cf8",
 						"exec": [
 							""
 						],
@@ -901,7 +850,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e9eeed9e-ff1b-411d-9772-1dbab47b0c16",
 						"exec": [
 							"pm.test(\"Should have status 204 No Content\", () => {",
 							"    pm.response.to.have.status(204);",
@@ -935,7 +883,276 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6b533a89-510e-4f92-84c5-8f081b5bfdbf",
+						"exec": [
+							"pm.test(\"Should have status 200 OK\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employee] Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should have status 200 OK\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@employee.com\",\n    \"password\": \"password\",\n    \"role\": \"employee\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employee] Delete Work Session",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should have status 204 No Content\", () => {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/work-session/{{createdWorkSession}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"work-session",
+						"{{createdWorkSession}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employee] Logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should have status 200 OK\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employer] Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should have status 200 OK\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@employer.com\",\n    \"password\": \"password\",\n    \"role\": \"employer\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employer] Delete Project",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should have status 204 No Content\", () => {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/project/{{createdProject}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"project",
+						"{{createdProject}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employer] Delete Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should have status 204 No Content\", () => {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/employee/{{createdEmployee}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"employee",
+						"{{createdEmployee}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Employer] Logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
 						"exec": [
 							"pm.test(\"Should have status 200 OK\", () => {",
 							"    pm.response.to.have.status(200);",
@@ -966,10 +1183,20 @@
 	],
 	"variable": [
 		{
-			"id": "192a4fd9-c029-49fe-a0a8-af9def12ff71",
 			"key": "createdWorkSession",
 			"value": "3e88fe48-27b6-11eb-ac48-84fdd1be0091"
+		},
+		{
+			"key": "createdProject",
+			"value": ""
+		},
+		{
+			"key": "createdEmployee",
+			"value": ""
+		},
+		{
+			"key": "createdInvoice",
+			"value": ""
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

@@ -70,24 +70,30 @@ Copy the contents of the generated `./dist` directory to the root directory of y
 ## Project Structure
 
 ### API
-  * `config/` global variable definitions such as database credentials and application settings.
-  * `public/` resources accessible from outside localhost.
-  * `lib/` logic not specific to the project.
-    * `lib/Database` ORM functionality.
-    * `lib/Api` Routing and API functionality.
-  * `src/` application specific logic.
-    * `src/Entity/` classes that act as blueprints for the application's main data structures. 
-    * `src/Handler/` classes that contain methods for handling certain HTTP requests and sending JSON responses.
-    * `src/Middleware/` classes that contain methods for processing incoming HTTP requests before/after the matched handler method has executed.
-  * `.htaccess` redirects all HTTP requests to `public/index.php`.
+  * `config/` global variable definitions such as database credentials and application settings loaded from the `.env` file
+  * `public/` public resources eg. index.php
+  * `lib/` logic not specific to the project
+    * `lib/Database` ORM functionality
+    * `lib/Api` Routing and API functionality
+  * `src/` application specific logic
+    * `src/Entity/` classes that act as blueprints for the application's main data structures
+    * `src/Handler/` classes that contain methods for handling certain HTTP requests and sending JSON responses
+    * `src/Middleware/` classes that contain methods for processing incoming HTTP requests before/after the matched handler method has executed
+  * `.htaccess` redirects all HTTP requests to `public/index.php`
+
+#### Explanation of API Code
+
+The API utilises a custom routing system heavily inspired by NodeJS' Express library. This system allows the developer to create handlers and middleware (for examples please refer to `./api/src/Handler` and `./api/src/Middleware` respectively). When defining routes the developer is able to layer these functions together in a way that allows them to be executed sequentially when the correct route/method is matched. This pattern allows 99% of multipurpose/reuseable functionality to only need to be written once. Handler and middleware functions are organized into classes based on the request paths that they execute on in order to facilitate readeability. Both handler and middleware functions share the same signature, `function(request, response, next)`. The request and response parameters are objects that are populated with various pieces of data related to the recieved request and the response that will be returned by the API once the stack of middleware/handler functions has executed. The next parameter is a function with a sinature of `next(request, response)`. The next function calls the next middleware/handler function in the stack with the request/response objects passed to it. This allows middleware/handler functions further up the stack to modify or add data to these objects and essentially preprocess data for functions further along the chain. Typically, only middleware functions will utilise the next function as handler functions are usually situated as the final function in the stack, and as such must return a JSON response. Although there are use cases where a handler function may call the next function in order to proceed to a final middleware which returns the response. A pattern similar to this could be utilised for a catch-all error handling middleware.
+
+The API also utilises a custom Object Relational Mapping (ORM) system that allows the developer to define classes that represent the data stored in the database called entities. Entities possess various methods (some are static and can be called without instantiating the class first) that allow developers to perform various SQL operations, such as SELECT, DELETE, UPDATE and INSERT, without having to write any SQL themselves. Entities can also be defined with a few class constants that dictate how the entity should be validated, and how the entity relates to other entities within the database. Please refer to `./api/src/Entity/Employee.php` for an example of an entity that fully utilises all of these features. You may also refer to the various handler and middleware functions present in the API for examples of how these entities are utilised.
 
 ### Employee App
-  * `index.html` HTML structure of the application.
-  * `css/` application styles.
-  * `js/` application logic.
-    * `app.js` main JavaScript entry point of the application.
-    * `eventHandlers/` functions that handle application events.
-    * `lib/` JavaScript code required by external libraries.
+  * `index.html` HTML structure of the application
+  * `css/` application styles
+  * `js/` application logic
+    * `app.js` main JavaScript entry point of the application
+    * `eventHandlers/` functions that handle application events
+    * `lib/` JavaScript code required by external libraries
 
 ## Technologies
 
@@ -121,11 +127,11 @@ All technologies needed to run the application are handled by Composer and Yarn.
 
 ## Similarity to PROJ1 Specification
 
-All of the functionality outlined in PROJ1 was implemented exactly as defined, very little changed. The only major change was the technologies used to complete UX2. I ended up going with a vanilla HTML/CSS/JS approach rather than using a templating engine.
+All of the functionality outlined in PROJ1 was implemented exactly as defined, very little changed. The only major change was the technologies used to complete UX2. I ended up going with a vanilla HTML/CSS/JS approach rather than using a templating engine. I also decided to move the employee editing functionality from the employee app to the employer dashboard as it makes more sense for the employer to have control of this in a business setting.
 
 ## Roadmap
 
-Going forward, I would like to address timezones so that the application can be used with greater accuracy around the world. i would also like to add support for multiple currencies. There is still a bug with the edit invoice functionality in the employer dashboard where the work sessions present in the invoice are not marked as added when the modal opens. This is due to a lack of the key feature that would be needed to implement this using the Material UI data grid. The datagrid currently does not support preselection of rows. These are a few of the thoughts and things I would like to address in the future.
+Going forward, I would like to address timezones so that the application can be used with greater accuracy around the world. The application currently also does not support multiple currencies. This could be achieved with the use of `money.js`. I would also like to redevelop the employee application using React Native with the Exp toolchain. This would allow the application to be run as a native app on Android and IOS phones, which would greatly improve the user experience and remove most of the visual inconsistencies currently present within the app.
 
 ## Security Tests
 

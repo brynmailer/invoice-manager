@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 28, 2021 at 04:22 AM
+-- Generation Time: Jun 05, 2021 at 04:49 AM
 -- Server version: 10.5.10-MariaDB
 -- PHP Version: 8.0.6
 
@@ -59,7 +59,8 @@ CREATE TABLE `employer` (
 --
 
 INSERT INTO `employer` (`ID`, `userID`, `companyName`) VALUES
-('3ecf23bc-bf69-11eb-9d0d-84fdd1be0091', '3ecee8bc-bf69-11eb-9d0d-84fdd1be0091', 'Test Company');
+('3ecf23bc-bf69-11eb-9d0d-84fdd1be0091', '3ecee8bc-bf69-11eb-9d0d-84fdd1be0091', 'Test Company'),
+('5fb9aa2f-c5b9-11eb-b4ff-84fdd1be0091', '5fb97db8-c5b9-11eb-b4ff-84fdd1be0091', 'test employer company');
 
 -- --------------------------------------------------------
 
@@ -135,7 +136,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`ID`, `email`, `firstName`, `lastName`, `password`) VALUES
 ('3ecee8bc-bf69-11eb-9d0d-84fdd1be0091', 'testadmin@test.com', 'Test', 'Admin', '$2y$10$bMzeR9XcQXACo.CJHAu.BeWsSkWDk/T64CLhbaFmQhvrq4PfIGF6m'),
-('4d81f1d6-bf69-11eb-9d0d-84fdd1be0091', 'testemployee@test.com', 'Test', 'Employee', '$2y$10$p0aidRFWQsiLR64HgmDNkujWga9eJWAH71yPKXs5wSKbxBUE.S6iW');
+('4d81f1d6-bf69-11eb-9d0d-84fdd1be0091', 'testemployee@test.com', 'Test', 'Employee', '$2y$10$p0aidRFWQsiLR64HgmDNkujWga9eJWAH71yPKXs5wSKbxBUE.S6iW'),
+('5fb97db8-c5b9-11eb-b4ff-84fdd1be0091', 'test@employer.com', 'test', 'employer', '$2y$10$QdHvyQszCr6sXIoc6tByduOldPcgMbo3L88QNhWlynbM5DIUhLQHi');
 
 -- --------------------------------------------------------
 
