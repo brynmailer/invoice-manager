@@ -50,6 +50,18 @@ Run the `./bundle` script located in the root of this repository, this may requi
 
 Copy the contents of the generated `./dist` directory to the root directory of your web server.
 
+## Test User Details
+
+There are a total of three test users registered in the database. Although one of these is exclusively for use by the Postman test script. The details of the remaining two users are listed below:
+
+### Test Employer
+- Email: testadmin@test.com
+- Password: testpassword
+
+### Test Employee
+- Email: testemployee@test.com
+- Password: testpassword
+
 ## Tech Stack
 
 ### API
