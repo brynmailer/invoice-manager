@@ -2,7 +2,7 @@
 
 An application that takes the hassle out of the project invoicing process, by automating the collection of work hours completed by employees, and the calculation of project prices.
 
-[Hosted application](https://invoice-manager.online)
+[Hosted application](https://invoice-manager.online) (Depending on when you are reading this, the application may not be hosted in order to reduce AWS fees)
 
 ## System Rules
 
@@ -143,7 +143,7 @@ All of the functionality outlined in PROJ1 was implemented exactly as defined, v
 
 ## Roadmap
 
-Going forward, I would like to address timezones so that the application can be used with greater accuracy around the world. The application currently also does not support multiple currencies. This could be achieved with the use of `money.js`. I would also like to redevelop the employee application using React Native with the Exp toolchain. This would allow the application to be run as a native app on Android and IOS phones, which would greatly improve the user experience and remove most of the visual inconsistencies currently present within the app.
+Going forward, I would like to address timezones so that the application can be used with greater accuracy around the world. The application currently also does not support multiple currencies. This could be achieved with the use of `money.js`. I would also like to redevelop the employee application using React Native with the Expo toolchain. This would allow the application to be run as a native app on Android and IOS phones, which would greatly improve the user experience and remove most of the visual inconsistencies currently present within the app.
 
 ## Security Tests
 
